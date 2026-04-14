@@ -14,20 +14,6 @@
 
 不要上传简历 PDF、本地检查报告、Cloudflare 隧道程序、日志文件或压缩包。
 
-## GitHub Pages 发布步骤
-
-1. 登录 GitHub。
-2. 点击右上角 `+`，选择 `New repository`。
-3. 仓库名建议用 `career-radar`。
-4. 选择 `Public`。
-5. 创建仓库。
-6. 进入仓库后点 `Add file` -> `Upload files`。
-7. 上传本文件夹里的 `index.html`、`styles.css`、`career.js`、`.nojekyll`、`README.md`。
-8. 点 `Commit changes`。
-9. 进入 `Settings` -> `Pages`。
-10. 在 `Build and deployment` 里，把 `Source` 设为 `Deploy from a branch`。
-11. Branch 选择 `main`，Folder 选择 `/(root)`。
-12. 点 `Save`。
 
 通常 1-5 分钟后会生成网址：
 
