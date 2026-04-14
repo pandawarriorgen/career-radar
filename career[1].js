@@ -1,0 +1,2619 @@
+const roles = [
+  {
+    market: "uk",
+    role: "rf",
+    level: "graduate",
+    company: "Cambridge Consultants",
+    title: "Graduate RF Engineer / Wireless Systems",
+    location: "Cambridge, UK",
+    match: 92,
+    success: 42,
+    cost: "£1,250-£1,520/月",
+    rent: "£850-£1,050 合租房间",
+    transit: "£40-£90 自行车/公交",
+    applyTime: "90-120 分钟",
+    risk: "竞争强；需把 RF 仿真和实验指标讲清楚",
+    url: "https://www.cambridgeconsultants.com/careers/early-careers/",
+    summary: "最适合你把 ADS/CST、S 参数、天线、RF coupler 和传感系统项目组合成一个清晰的工程研发故事。",
+    tags: ["RF", "ADS/CST", "S-parameter", "Graduate"]
+  },
+  {
+    market: "uk",
+    role: "sensor",
+    level: "graduate",
+    company: "Leonardo UK",
+    title: "Graduate Systems / Electronics Engineer",
+    location: "Edinburgh / UK sites",
+    match: 90,
+    success: 30,
+    cost: "£1,060-£1,280/月",
+    rent: "£680-£830 合租房间",
+    transit: "£70-£90 公交/月票",
+    applyTime: "90-110 分钟",
+    risk: "雷达/国防方向高度匹配，但可能有 SC、国籍或居住年限限制",
+    url: "https://careers.leonardo.com/search/jobs",
+    summary: "你的 RF、信号处理、传感器和 NDT 背景与雷达/电子系统非常贴合，投递前先检查 security clearance。",
+    tags: ["Radar", "Sensors", "Electronics", "SC risk"]
+  },
+  {
+    market: "uk",
+    role: "embedded",
+    level: "graduate",
+    company: "QinetiQ",
+    title: "Graduate Engineer / Test and Evaluation",
+    location: "Farnborough / UK sites",
+    match: 86,
+    success: 28,
+    cost: "£1,150-£1,420/月",
+    rent: "£750-£950 合租房间",
+    transit: "£80-£140 通勤",
+    applyTime: "80-110 分钟",
+    risk: "国防与测试岗位匹配高，但安全审查风险较高",
+    url: "https://www.qinetiq.com/en/careers/early-careers",
+    summary: "NDT、精密测量、实验验证和工程测试经历可以直接对应 test & evaluation 类 graduate 岗位。",
+    tags: ["Test", "NDT", "Measurement", "Graduate"]
+  },
+  {
+    market: "uk",
+    role: "imaging",
+    level: "intern",
+    company: "Canon Medical Research USA",
+    title: "Medical Imaging Software Intern",
+    location: "Remote-ready / Cambridge MA listing",
+    match: 84,
+    success: 36,
+    cost: "远程按所在地计算",
+    rent: "英国远程可控成本",
+    transit: "£0-£50",
+    applyTime: "60-90 分钟",
+    risk: "地点不一定在英国，但医学成像与 SIS 匹配度高",
+    url: "https://www.research.us.medical.canon/opportunities/intern-software-engineer/",
+    summary: "适合用 Python、成像、信号处理和传感系统课程讲医疗影像软件与算法能力。",
+    tags: ["Imaging", "Python", "Medical", "Intern"]
+  },
+  {
+    market: "uk",
+    role: "semiconductor",
+    level: "graduate",
+    company: "Oxford Instruments",
+    title: "Graduate / Early Careers Engineering",
+    location: "Oxford / Bristol / UK",
+    match: 82,
+    success: 38,
+    cost: "£1,120-£1,450/月",
+    rent: "£780-£1,000 合租房间",
+    transit: "£60-£110",
+    applyTime: "70-95 分钟",
+    risk: "需要把纳米制造、probe station、SEM/profilometry 写成设备工程语言",
+    url: "https://careers.oxinst.com/",
+    summary: "NiCr 薄膜电阻、cleanroom、表征和误差分析经历适合仪器、半导体设备和应用工程岗位。",
+    tags: ["Nanofab", "Instrumentation", "Semiconductor", "Graduate"]
+  },
+  {
+    market: "uk",
+    role: "embedded",
+    level: "graduate",
+    company: "Siemens Healthineers",
+    title: "Engineering Graduate / Medical Technology",
+    location: "UK sites",
+    match: 80,
+    success: 40,
+    cost: "£1,100-£1,450/月",
+    rent: "£720-£980 合租房间",
+    transit: "£70-£130",
+    applyTime: "75-100 分钟",
+    risk: "岗位开放批次变化快，需持续刷新 early careers",
+    url: "https://www.siemens-healthineers.com/en-uk/careers",
+    summary: "传感器、成像、仪器、LabVIEW 数据采集和 MATLAB 分析经历可对接医疗设备工程岗位。",
+    tags: ["Medical devices", "Sensors", "LabVIEW", "Graduate"]
+  }
+];
+
+roles.push(
+  {
+    market: "cn",
+    role: "rf",
+    level: "graduate",
+    company: "Huawei",
+    title: "射频 / 天线 / 传感器 / 算法工程师",
+    location: "深圳 / 上海 / 杭州 / 北京",
+    match: 91,
+    success: 46,
+    cost: "¥5,600-¥7,800/月",
+    rent: "¥2,300-¥4,000 合租/单间",
+    transit: "¥150-¥230 公交地铁",
+    applyTime: "90-130 分钟",
+    risk: "竞争极强；需要准备笔试、测评和中文项目表达",
+    url: "https://career.huawei.com/reccampportal/portal5/index.html",
+    summary: "RF、信号处理、传感器、嵌入式和 Python/MATLAB 都能匹配华为硬件、终端、无线和算法方向。",
+    tags: ["校招", "RF", "算法", "硬件"]
+  },
+  {
+    market: "cn",
+    role: "embedded",
+    level: "intern",
+    company: "DJI",
+    title: "硬件 / 嵌入式 / 感知算法实习或校招",
+    location: "深圳 / 上海 / 北京 / 多地",
+    match: 87,
+    success: 32,
+    cost: "¥5,400-¥7,300/月",
+    rent: "¥3,000-¥3,800 深圳合租/单间",
+    transit: "¥150-¥220",
+    applyTime: "80-120 分钟",
+    risk: "技术面深，建议先补作品集或 GitHub 项目说明",
+    url: "https://we.dji.com/zh-CN/campus",
+    summary: "传感器、嵌入式 C、Raspberry Pi 实时推理、信号处理和工程调试经历适合大疆硬件/感知方向。",
+    tags: ["实习", "嵌入式", "感知", "深圳"]
+  },
+  {
+    market: "cn",
+    role: "sensor",
+    level: "graduate",
+    company: "Hikvision",
+    title: "图像算法 / 硬件测试 / 传感器工程师",
+    location: "杭州 / 武汉 / 西安 / 多地",
+    match: 92,
+    success: 52,
+    cost: "¥4,600-¥6,500/月",
+    rent: "¥2,200-¥3,200 杭州合租/单间",
+    transit: "¥120-¥180",
+    applyTime: "70-100 分钟",
+    risk: "算法和硬件岗位都多，需按 JD 改中文简历关键词",
+    url: "https://campushr.hikvision.com/school",
+    summary: "NDT 缺陷检测、YOLO、成像、传感器接口和实验测试经历与工业视觉/安防硬件岗位贴合。",
+    tags: ["校招", "图像", "传感器", "杭州"]
+  },
+  {
+    market: "cn",
+    role: "semiconductor",
+    level: "graduate",
+    company: "SMIC",
+    title: "工艺 / 设备 / 量测 / 良率工程师",
+    location: "上海 / 北京 / 深圳 / 天津",
+    match: 83,
+    success: 44,
+    cost: "¥5,800-¥8,200/月",
+    rent: "¥3,700-¥4,300 上海/北京非中心单间",
+    transit: "¥200-¥230",
+    applyTime: "60-90 分钟",
+    risk: "更偏工艺/制造，需强调 cleanroom、薄膜、SEM、probe station",
+    url: "https://www.smics.com/en/site/human",
+    summary: "纳米制造、薄膜电阻、表征和误差来源分析可以转化为半导体工艺/设备/量测岗位语言。",
+    tags: ["半导体", "工艺", "量测", "校招"]
+  },
+  {
+    market: "cn",
+    role: "rf",
+    level: "graduate",
+    company: "ZTE",
+    title: "射频 / 硬件 / 通信算法工程师",
+    location: "深圳 / 南京 / 西安 / 武汉",
+    match: 85,
+    success: 50,
+    cost: "¥4,900-¥7,000/月",
+    rent: "¥2,300-¥3,700 合租/单间",
+    transit: "¥120-¥220",
+    applyTime: "70-100 分钟",
+    risk: "需准备通信基础、射频链路、C/嵌入式和笔试",
+    url: "https://job.zte.com.cn/cn/campus-recruitment",
+    summary: "RF/microwave、S 参数、嵌入式和信号处理背景适合通信设备公司的硬件与射频方向。",
+    tags: ["通信", "RF", "硬件", "校招"]
+  },
+  {
+    market: "cn",
+    role: "embedded",
+    level: "graduate",
+    company: "BYD",
+    title: "传感器 / 硬件测试 / 电子电气工程师",
+    location: "深圳 / 西安 / 长沙 / 合肥",
+    match: 78,
+    success: 55,
+    cost: "¥4,800-¥6,900/月",
+    rent: "¥2,600-¥3,700",
+    transit: "¥120-¥220",
+    applyTime: "55-85 分钟",
+    risk: "岗位量大但方向需精筛，避免被分到低相关生产支持岗",
+    url: "https://job.byd.com/",
+    summary: "测控本科、NDT 实习、精密测量和嵌入式 C 经验可匹配车载传感器、测试和电子电气岗位。",
+    tags: ["汽车电子", "测试", "传感器", "校招"]
+  }
+);
+
+roles.push(
+  {
+    market: "uk",
+    role: "embedded",
+    level: "graduate",
+    company: "BAE Systems",
+    title: "Graduate Electronics / Wireless / Test Engineer",
+    location: "Rochester / Great Baddow / UK sites",
+    match: 88,
+    success: 24,
+    cost: "£1,100-£1,450/月",
+    rent: "£700-£950 合租房间",
+    transit: "£70-£140 通勤",
+    applyTime: "100-140 分钟",
+    risk: "高度相关但国防岗位常有安全审查、国籍和居住年限要求",
+    url: "https://jobs.baesystems.com/global/en/studentsandgraduates",
+    summary: "RF、传感器、DSP、NDT 和工程测试经历很贴合电子/无线/测试类 graduate 岗位，先查 eligibility。",
+    tags: ["Graduate", "Electronics", "RF", "Security risk"]
+  },
+  {
+    market: "uk",
+    role: "embedded",
+    level: "graduate",
+    company: "Thales UK",
+    title: "Graduate Electronics / Systems Engineer",
+    location: "Crawley / Glasgow / Reading / UK sites",
+    match: 86,
+    success: 29,
+    cost: "£1,080-£1,520/月",
+    rent: "£700-£1,000 合租房间",
+    transit: "£70-£140",
+    applyTime: "90-125 分钟",
+    risk: "雷达、航电和安全系统岗位相关，但部分岗位可能需要安全审查",
+    url: "https://careers.thalesgroup.com/global/en/uk-graduate-apprenticeships",
+    summary: "适合把 RF、S 参数、信号处理和仪器测试项目包装为 systems/electronics engineering 能力。",
+    tags: ["Systems", "Electronics", "Radar", "Graduate"]
+  },
+  {
+    market: "uk",
+    role: "rf",
+    level: "graduate",
+    company: "MBDA",
+    title: "Graduate RF / Seeker / Electronics Engineer",
+    location: "Stevenage / Bristol / Bolton",
+    match: 87,
+    success: 18,
+    cost: "£1,050-£1,420/月",
+    rent: "£680-£950 合租房间",
+    transit: "£80-£140",
+    applyTime: "100-150 分钟",
+    risk: "技术匹配高，但国防导弹领域对安全审查和国籍限制通常更严格",
+    url: "https://www.mbdacareers.co.uk/early-careers",
+    summary: "RF coupler、antenna、microwave circuits 和 signal analysis 可对应 seeker/RF electronics。",
+    tags: ["RF", "Seeker", "Defence", "High risk"]
+  },
+  {
+    market: "uk",
+    role: "sensor",
+    level: "graduate",
+    company: "Renishaw",
+    title: "Graduate Metrology / Electronics / Software Engineer",
+    location: "Gloucestershire / South Wales",
+    match: 86,
+    success: 43,
+    cost: "£950-£1,220/月",
+    rent: "£560-£760 合租房间",
+    transit: "£60-£110",
+    applyTime: "70-100 分钟",
+    risk: "需要把 NDT 和精密测量经历写成 metrology 与 instrumentation 语言",
+    url: "https://www.renishaw.com/en/early-careers--25812",
+    summary: "测控、传感器、精密测量、NDT 和 LabVIEW 采集系统都能转向计量与工业仪器岗位。",
+    tags: ["Metrology", "Sensors", "Instrumentation", "Graduate"]
+  },
+  {
+    market: "uk",
+    role: "semiconductor",
+    level: "graduate",
+    company: "Arm",
+    title: "Graduate Hardware / Silicon Engineer",
+    location: "Cambridge / Manchester",
+    match: 76,
+    success: 34,
+    cost: "£1,150-£1,520/月",
+    rent: "£760-£1,050 合租房间",
+    transit: "£50-£95",
+    applyTime: "90-130 分钟",
+    risk: "更偏数字芯片/SoC，需要强调电路、C、仿真和底层工程能力",
+    url: "https://careers.arm.com/early-careers",
+    summary: "不是最贴 RF，但电路、C/嵌入式、硬件系统和半导体课程可用于投 silicon/hardware graduate。",
+    tags: ["Silicon", "Hardware", "C", "Graduate"]
+  },
+  {
+    market: "uk",
+    role: "imaging",
+    level: "graduate",
+    company: "Teledyne e2v",
+    title: "Imaging Sensor / RF Power / Applications Engineer",
+    location: "Chelmsford, UK",
+    match: 88,
+    success: 37,
+    cost: "£1,050-£1,320/月",
+    rent: "£650-£850 合租房间",
+    transit: "£70-£130",
+    applyTime: "75-110 分钟",
+    risk: "部分空间/国防项目可能有审查要求，优先看民用 imaging sensor 岗",
+    url: "https://www.teledyne.com/careers",
+    summary: "成像、传感器、半导体制造和 RF 背景与 Teledyne e2v 的 imaging sensor/RF 产品线贴合。",
+    tags: ["Imaging sensor", "RF", "Applications", "Graduate"]
+  },
+  {
+    market: "uk",
+    role: "sensor",
+    level: "graduate",
+    company: "TTP",
+    title: "Graduate Consultant Engineer / Electronics",
+    location: "Cambridge, UK",
+    match: 84,
+    success: 36,
+    cost: "£1,250-£1,550/月",
+    rent: "£850-£1,050 合租房间",
+    transit: "£40-£90",
+    applyTime: "90-120 分钟",
+    risk: "咨询型研发需要更强的英文项目表达和跨学科沟通故事",
+    url: "https://www.ttp.com/careers/early-careers/",
+    summary: "适合把传感器、仪器、成像和技术管理课程讲成跨行业研发咨询能力。",
+    tags: ["Consulting", "Sensors", "Electronics", "Graduate"]
+  },
+  {
+    market: "uk",
+    role: "sensor",
+    level: "graduate",
+    company: "Diamond Light Source / STFC",
+    title: "Graduate Electronics / Instrumentation Engineer",
+    location: "Didcot, UK",
+    match: 83,
+    success: 41,
+    cost: "£1,050-£1,360/月",
+    rent: "£680-£900 合租房间",
+    transit: "£70-£120",
+    applyTime: "70-110 分钟",
+    risk: "科研机构岗位少但匹配度高，需要突出实验系统和数据采集",
+    url: "https://www.diamond.ac.uk/Careers.html",
+    summary: "你的 LabVIEW、传感器接口、RF、实验表征和 MATLAB 分析适合大型科学设施 instrumentation。",
+    tags: ["Instrumentation", "Research", "Electronics", "Graduate"]
+  },
+  {
+    market: "uk",
+    role: "semiconductor",
+    level: "intern",
+    company: "UKAEA",
+    title: "Graduate / Internship in Diagnostics and Instrumentation",
+    location: "Culham, Oxfordshire",
+    match: 79,
+    success: 35,
+    cost: "£1,050-£1,360/月",
+    rent: "£680-£900 合租房间",
+    transit: "£70-£120",
+    applyTime: "80-120 分钟",
+    risk: "核聚变机构岗位批次变化快，需持续刷新并检查资格要求",
+    url: "https://careers.ukaea.uk/",
+    summary: "传感器、RF、仪器、数据采集和实验验证经历可对应 diagnostics/instrumentation。",
+    tags: ["Diagnostics", "Instrumentation", "Fusion", "Intern"]
+  },
+  {
+    market: "cn",
+    role: "embedded",
+    level: "graduate",
+    company: "Xiaomi",
+    title: "硬件 / 射频 / 嵌入式 / 影像算法工程师",
+    location: "北京 / 上海 / 深圳 / 武汉 / 南京",
+    match: 84,
+    success: 48,
+    cost: "¥5,200-¥8,000/月",
+    rent: "¥2,500-¥4,000 合租/单间",
+    transit: "¥150-¥230",
+    applyTime: "70-110 分钟",
+    risk: "消费电子岗位竞争强，建议突出嵌入式、传感器和实时推理作品",
+    url: "https://hr.xiaomi.com/campus",
+    summary: "嵌入式 C、传感器、影像/YOLO、RF 和硬件测试可投手机/汽车/IoT 相关岗位。",
+    tags: ["校招", "硬件", "影像", "嵌入式"]
+  },
+  {
+    market: "cn",
+    role: "sensor",
+    level: "graduate",
+    company: "Goertek",
+    title: "声学 / 光学 / 传感器 / 电子硬件工程师",
+    location: "潍坊 / 青岛 / 上海 / 深圳",
+    match: 86,
+    success: 58,
+    cost: "¥3,800-¥6,300/月",
+    rent: "¥1,500-¥3,000 合租/单间",
+    transit: "¥100-¥180",
+    applyTime: "55-85 分钟",
+    risk: "岗位多但城市和部门差异大，投递时需避开低相关制造支持岗",
+    url: "https://career.goertek.com/",
+    summary: "传感器、测控、声光电、嵌入式和精密测量背景适合消费电子零部件研发与测试。",
+    tags: ["声学", "光学", "传感器", "校招"]
+  },
+  {
+    market: "cn",
+    role: "semiconductor",
+    level: "graduate",
+    company: "BOE",
+    title: "显示 / 传感 / 工艺 / 设备工程师",
+    location: "北京 / 合肥 / 成都 / 武汉 / 重庆",
+    match: 81,
+    success: 54,
+    cost: "¥4,300-¥6,800/月",
+    rent: "¥1,800-¥3,500 合租/单间",
+    transit: "¥120-¥220",
+    applyTime: "55-90 分钟",
+    risk: "偏制造和显示工艺，需要强调薄膜、表征、误差分析和设备理解",
+    url: "https://campus.boe.com/",
+    summary: "纳米制造、薄膜电阻、SEM/profilometry 与测控本科适合显示/传感器工艺和设备岗。",
+    tags: ["显示", "工艺", "设备", "校招"]
+  },
+  {
+    market: "cn",
+    role: "imaging",
+    level: "graduate",
+    company: "Sunny Optical",
+    title: "光学 / 图像算法 / 电子设计 / 工艺技术",
+    location: "宁波 / 杭州 / 上海 / 中山",
+    match: 89,
+    success: 57,
+    cost: "¥4,000-¥6,500/月",
+    rent: "¥1,600-¥3,200 合租/单间",
+    transit: "¥100-¥180",
+    applyTime: "60-95 分钟",
+    risk: "官方入口可能走第三方校招系统，需确认岗位批次和地点",
+    url: "https://www.sunnyoptical.com/jobs.html",
+    summary: "成像系统、传感器、YOLO、CST/光电基础和测控背景非常适合光学/图像/电子岗位。",
+    tags: ["光学", "图像算法", "电子设计", "校招"]
+  },
+  {
+    market: "cn",
+    role: "sensor",
+    level: "graduate",
+    company: "Hesai Technology",
+    title: "激光雷达 / 传感器 / 测试 / 嵌入式工程师",
+    location: "上海 / 杭州 / 深圳",
+    match: 88,
+    success: 45,
+    cost: "¥5,000-¥7,600/月",
+    rent: "¥2,500-¥4,000 合租/单间",
+    transit: "¥150-¥230",
+    applyTime: "80-120 分钟",
+    risk: "自动驾驶传感器方向竞争强，需要准备项目深挖和硬件调试细节",
+    url: "https://www.hesaitech.com/cn/careers",
+    summary: "传感器、信号处理、NDT 缺陷检测、嵌入式和实验验证可对应激光雷达硬件/测试。",
+    tags: ["LiDAR", "传感器", "测试", "校招"]
+  },
+  {
+    market: "cn",
+    role: "sensor",
+    level: "intern",
+    company: "RoboSense",
+    title: "激光雷达 / 感知 / 硬件测试实习",
+    location: "深圳 / 上海",
+    match: 82,
+    success: 39,
+    cost: "¥5,200-¥7,300/月",
+    rent: "¥3,000-¥3,800 深圳合租/单间",
+    transit: "¥150-¥220",
+    applyTime: "70-100 分钟",
+    risk: "实习岗位不稳定，需频繁刷新官网和招聘平台",
+    url: "https://www.robosense.cn/social-show-2",
+    summary: "传感器、测试、嵌入式和信号处理经历适合激光雷达硬件测试/感知实习入口。",
+    tags: ["LiDAR", "实习", "硬件测试", "深圳"]
+  },
+  {
+    market: "cn",
+    role: "embedded",
+    level: "graduate",
+    company: "CATL",
+    title: "BMS / 传感器 / 测试 / 电子电气工程师",
+    location: "宁德 / 上海 / 溧阳 / 成都",
+    match: 76,
+    success: 56,
+    cost: "¥3,800-¥6,300/月",
+    rent: "¥1,500-¥3,000 合租/单间",
+    transit: "¥100-¥180",
+    applyTime: "55-85 分钟",
+    risk: "方向较偏新能源制造，需要筛选研发/测试/算法岗位",
+    url: "https://catl.zhiye.com/",
+    summary: "测控、传感器、嵌入式 C、精密测量和数据分析可转向 BMS、测试和电子电气。",
+    tags: ["新能源", "BMS", "测试", "校招"]
+  },
+  {
+    market: "cn",
+    role: "imaging",
+    level: "graduate",
+    company: "DJI",
+    title: "视觉感知 / 嵌入式 / 硬件工程师",
+    location: "深圳 / 上海 / 北京",
+    match: 86,
+    success: 30,
+    cost: "¥5,400-¥7,500/月",
+    rent: "¥3,000-¥3,800 深圳合租/单间",
+    transit: "¥150-¥220",
+    applyTime: "100-150 分钟",
+    risk: "技术面和算法/工程深挖都强，建议先准备作品集",
+    url: "https://we.dji.com/zh-CN/campus",
+    summary: "这条是 DJI 校招方向，和前面的实习入口区分；适合用 YOLO、Raspberry Pi、嵌入式和传感器项目证明工程落地。",
+    tags: ["校招", "视觉", "嵌入式", "深圳"]
+  },
+  {
+    market: "cn",
+    role: "rf",
+    level: "graduate",
+    company: "Comba Telecom",
+    title: "射频 / 天线 / 通信硬件工程师",
+    location: "广州 / 西安 / 南京",
+    match: 80,
+    success: 49,
+    cost: "¥4,200-¥6,500/月",
+    rent: "¥1,800-¥3,200 合租/单间",
+    transit: "¥120-¥200",
+    applyTime: "60-95 分钟",
+    risk: "公司知名度低于大厂但方向贴合，可作为中高胜率补充投递",
+    url: "https://www.comba-telecom.com/en/careers",
+    summary: "RF/microwave、天线、S 参数和通信硬件方向匹配，适合作为大厂之外的高相关备选。",
+    tags: ["RF", "天线", "通信", "硬件"]
+  }
+);
+
+const roleBlueprints = {
+  rf: {
+    title: "RF / Antenna / Microwave Engineer",
+    cnTitle: "射频 / 天线 / 微波工程师",
+    skills: ["RF", "Antenna", "ADS/CST", "S-parameter"],
+    summary: "与你的 RF coupler、patch antenna、S 参数、阻抗匹配和电磁仿真项目高度相关。"
+  },
+  sensor: {
+    title: "Sensor / Instrumentation / Test Engineer",
+    cnTitle: "传感器 / 仪器 / 测试工程师",
+    skills: ["Sensors", "NDT", "LabVIEW", "Measurement"],
+    summary: "可直接映射你的差分涡流传感器、NDT、精密测量、LabVIEW 采集和噪声分析经历。"
+  },
+  embedded: {
+    title: "Embedded / Electronics Engineer",
+    cnTitle: "嵌入式 / 电子硬件工程师",
+    skills: ["Embedded C", "MCU", "Electronics", "Testing"],
+    summary: "适合突出 C/Embedded C、8051/STM32/Arduino、传感器驱动、硬件调试和实验验证。"
+  },
+  imaging: {
+    title: "Imaging / Vision / Photonics Engineer",
+    cnTitle: "成像 / 视觉 / 光学工程师",
+    skills: ["Imaging", "Computer Vision", "Python", "Optics"],
+    summary: "适合把 SIS 成像系统、YOLO、Python 处理和传感器项目转成视觉/光学/成像岗位语言。"
+  },
+  semiconductor: {
+    title: "Semiconductor Process / Device Engineer",
+    cnTitle: "半导体工艺 / 器件 / 设备工程师",
+    skills: ["Nanofab", "Thin film", "SEM", "Probe station"],
+    summary: "与你的 NiCr 薄膜电阻、EBL、光刻、金属沉积、SEM、profilometry 和 probe station 经验相关。"
+  }
+};
+
+const hubCosts = {
+  london: { cost: "£1,450-£1,900/月", rent: "£900-£1,150 合租房间", transit: "£80-£175" },
+  scotland: { cost: "£950-£1,350/月", rent: "£550-£850 合租房间", transit: "£60-£95" },
+  cambridge: { cost: "£1,250-£1,650/月", rent: "£800-£1,100 合租房间", transit: "£40-£100" },
+  midlands: { cost: "£980-£1,350/月", rent: "£550-£800 合租房间", transit: "£60-£110" },
+  south: { cost: "£1,050-£1,520/月", rent: "£650-£1,000 合租房间", transit: "£70-£140" },
+  shanghai: { cost: "¥6,000-¥9,000/月", rent: "¥3,500-¥5,500 合租/单间", transit: "¥180-¥300" },
+  shenzhen: { cost: "¥5,500-¥8,200/月", rent: "¥2,800-¥4,500 合租/单间", transit: "¥150-¥260" },
+  hangzhou: { cost: "¥4,600-¥6,900/月", rent: "¥2,000-¥3,600 合租/单间", transit: "¥120-¥220" },
+  guangzhou: { cost: "¥4,200-¥6,600/月", rent: "¥1,800-¥3,400 合租/单间", transit: "¥120-¥220" },
+  yangtze: { cost: "¥3,900-¥6,000/月", rent: "¥1,600-¥3,000 合租/单间", transit: "¥100-¥180" },
+  remote: { cost: "按所在地计算", rent: "按所在地租房", transit: "¥0-¥150 / £0-£60" }
+};
+
+function makeOpportunity(profile) {
+  const blueprint = roleBlueprints[profile.role];
+  const cost = hubCosts[profile.hub] || hubCosts.remote;
+  const isChina = profile.market === "cn";
+  const level = profile.level || "graduate";
+  const salary = profile.salary || estimateSalary(profile.market, level, profile.role);
+  const contractLength = profile.contractLength || estimateContract(profile.market, level);
+  return {
+    market: profile.market,
+    role: profile.role,
+    level,
+    company: profile.company,
+    size: profile.size,
+    companyType: profile.companyType,
+    title: profile.title || (isChina ? blueprint.cnTitle : blueprint.title),
+    location: profile.location,
+    match: profile.match,
+    success: profile.success,
+    cost: cost.cost,
+    rent: cost.rent,
+    transit: cost.transit,
+    applyTime: profile.applyTime || (isChina ? "55-100 分钟" : "75-125 分钟"),
+    risk: profile.risk,
+    url: profile.url,
+    exactApplyUrl: profile.exactApplyUrl || "",
+    linkType: profile.exactApplyUrl ? "exact_apply" : "official_search",
+    salary,
+    contractLength,
+    verificationStatus: profile.verificationStatus || (profile.exactApplyUrl ? "岗位级链接" : "官方搜索入口"),
+    summary: `${blueprint.summary}${profile.note ? ` ${profile.note}` : ""}`,
+    tags: [profile.size, profile.companyType, ...blueprint.skills, ...(profile.tags || [])]
+  };
+}
+
+function estimateSalary(market, level, role) {
+  const ukGraduate = {
+    rf: "£32k-£45k/年",
+    sensor: "£30k-£42k/年",
+    embedded: "£32k-£46k/年",
+    imaging: "£31k-£45k/年",
+    semiconductor: "£33k-£48k/年"
+  };
+  const ukIntern = {
+    rf: "£22k-£32k/年折算或 £450-£650/周",
+    sensor: "£21k-£30k/年折算或 £420-£620/周",
+    embedded: "£22k-£32k/年折算或 £450-£650/周",
+    imaging: "£22k-£34k/年折算或 £450-£700/周",
+    semiconductor: "£23k-£35k/年折算或 £480-£720/周"
+  };
+  const cnGraduate = {
+    rf: "¥18k-¥35k/月 × 12-16",
+    sensor: "¥13k-¥26k/月 × 12-16",
+    embedded: "¥15k-¥30k/月 × 12-16",
+    imaging: "¥16k-¥35k/月 × 12-16",
+    semiconductor: "¥13k-¥28k/月 × 12-16"
+  };
+  const cnIntern = {
+    rf: "¥180-¥450/天",
+    sensor: "¥150-¥350/天",
+    embedded: "¥180-¥450/天",
+    imaging: "¥200-¥500/天",
+    semiconductor: "¥150-¥350/天"
+  };
+  if (market === "uk" && level === "intern") return ukIntern[role] || "£21k-£32k/年折算";
+  if (market === "uk") return ukGraduate[role] || "£30k-£45k/年";
+  if (level === "intern") return cnIntern[role] || "¥150-¥400/天";
+  return cnGraduate[role] || "¥13k-¥30k/月 × 12-16";
+}
+
+function estimateContract(market, level) {
+  if (level === "intern") {
+    return market === "uk" ? "8-12 周常见；部分 6-12 个月 placement" : "2-6 个月常见；暑期 8-12 周";
+  }
+  return market === "uk" ? "永久合同或 2 年 graduate scheme" : "正式劳动合同，通常 3 年首签或无固定期限转正路径";
+}
+
+function makeInternship(profile) {
+  const blueprint = roleBlueprints[profile.role];
+  const isChina = profile.market === "cn";
+  return makeOpportunity({
+    level: "intern",
+    title:
+      profile.title ||
+      `${isChina ? blueprint.cnTitle : blueprint.title} Internship`,
+    applyTime: profile.applyTime || (isChina ? "45-90 分钟" : "60-110 分钟"),
+    ...profile,
+    note: `${profile.note || ""} 作为实习投递，建议准备一页项目作品集和可讲 3 分钟的技术项目复盘。`
+  });
+}
+
+roles.push(
+  ...[
+    {
+      market: "uk",
+      role: "rf",
+      company: "Analog Devices",
+      size: "大型外企",
+      companyType: "美企",
+      location: "UK / Ireland / Europe",
+      hub: "cambridge",
+      match: 86,
+      success: 39,
+      url: "https://www.analog.com/en/careers.html",
+      risk: "模拟/RF 岗位技术门槛高，需要突出电路、噪声、信号链和 RF 仿真。",
+      note: "适合作为 RF/analog signal chain 方向的外企高价值投递。"
+    },
+    {
+      market: "uk",
+      role: "rf",
+      company: "Keysight Technologies",
+      size: "大型外企",
+      companyType: "美企",
+      location: "UK / Europe",
+      hub: "south",
+      match: 87,
+      success: 41,
+      url: "https://www.keysight.com/us/en/careers.html",
+      risk: "测试测量岗位需要把 VNA、S 参数和 RF measurement 写得很具体。",
+      note: "与你的 VNA、ADS、S-parameter 和仪器测量背景贴合。"
+    },
+    {
+      market: "uk",
+      role: "rf",
+      company: "Rohde & Schwarz",
+      size: "大型外企",
+      companyType: "德企",
+      location: "Fleet / UK / Europe",
+      hub: "south",
+      match: 84,
+      success: 38,
+      url: "https://www.rohde-schwarz.com/uk/career/",
+      risk: "射频测试岗位竞争集中，建议准备英文 RF measurement 项目讲解。",
+      note: "适合通信测试、射频仪器和应用工程方向。"
+    },
+    {
+      market: "uk",
+      role: "sensor",
+      company: "Emerson / NI",
+      size: "大型外企",
+      companyType: "美企",
+      location: "UK / Europe",
+      hub: "midlands",
+      match: 85,
+      success: 42,
+      url: "https://www.emerson.com/en-us/careers",
+      risk: "岗位分散，需要搜索 NI、LabVIEW、test systems、applications engineer。",
+      note: "LabVIEW、数据采集、传感器测试经历很适合。"
+    },
+    {
+      market: "uk",
+      role: "embedded",
+      company: "Bosch UK",
+      size: "大型外企",
+      companyType: "德企",
+      location: "UK / Europe",
+      hub: "midlands",
+      match: 80,
+      success: 43,
+      url: "https://www.bosch.co.uk/careers/",
+      risk: "岗位覆盖广，需要筛选 automotive electronics、sensors、embedded。",
+      note: "测控、传感器、嵌入式和汽车电子方向可投。"
+    },
+    {
+      market: "uk",
+      role: "embedded",
+      company: "Schneider Electric",
+      size: "大型外企",
+      companyType: "法企",
+      location: "UK / Europe",
+      hub: "midlands",
+      match: 78,
+      success: 44,
+      url: "https://www.se.com/ww/en/about-us/careers/overview.jsp",
+      risk: "更偏电气、自动化和能源管理，需要强调测控与嵌入式。",
+      note: "适合作为稳定型外企工程岗位。"
+    },
+    {
+      market: "uk",
+      role: "semiconductor",
+      company: "Infineon Technologies",
+      size: "大型外企",
+      companyType: "德企",
+      location: "UK / Europe",
+      hub: "midlands",
+      match: 82,
+      success: 40,
+      url: "https://www.infineon.com/cms/en/careers/",
+      risk: "需要补功率半导体、模拟电路或器件基础表达。",
+      note: "薄膜、器件表征和电路背景可用于 applications/process 方向。"
+    },
+    {
+      market: "uk",
+      role: "semiconductor",
+      company: "NXP Semiconductors",
+      size: "大型外企",
+      companyType: "荷兰企业",
+      location: "UK / Europe",
+      hub: "midlands",
+      match: 79,
+      success: 38,
+      url: "https://nxp.wd3.myworkdayjobs.com/en-US/careers",
+      risk: "芯片岗位更偏 IC/embedded，需要把 C 和硬件系统写清楚。",
+      note: "可投 applications、embedded systems、hardware graduate。"
+    },
+    {
+      market: "uk",
+      role: "semiconductor",
+      company: "STMicroelectronics",
+      size: "大型外企",
+      companyType: "法意企业",
+      location: "UK / Europe",
+      hub: "midlands",
+      match: 80,
+      success: 39,
+      url: "https://www.st.com/content/st_com/en/about/careers.html",
+      risk: "需按岗位补 MCU、sensors、analog 或 power electronics 关键词。",
+      note: "适合传感器、MCU、嵌入式和半导体 applications。"
+    },
+    {
+      market: "uk",
+      role: "embedded",
+      company: "Qualcomm",
+      size: "大型外企",
+      companyType: "美企",
+      location: "Cambridge / London / UK",
+      hub: "cambridge",
+      match: 78,
+      success: 29,
+      url: "https://www.qualcomm.com/company/careers",
+      risk: "竞争强，岗位偏通信/芯片，需要更强算法或嵌入式项目证明。",
+      note: "可搜索 RF、modem、embedded software、hardware systems。"
+    },
+    {
+      market: "uk",
+      role: "semiconductor",
+      company: "Intel",
+      size: "大型外企",
+      companyType: "美企",
+      location: "UK / Europe",
+      hub: "midlands",
+      match: 74,
+      success: 31,
+      url: "https://jobs.intel.com/",
+      risk: "芯片岗位竞争强，需补数字/验证/嵌入式关键词。",
+      note: "适合作为半导体大厂长线投递入口。"
+    },
+    {
+      market: "uk",
+      role: "semiconductor",
+      company: "AMD",
+      size: "大型外企",
+      companyType: "美企",
+      location: "UK / Europe",
+      hub: "cambridge",
+      match: 73,
+      success: 30,
+      url: "https://www.amd.com/en/corporate/careers.html",
+      risk: "更偏芯片设计/验证，需要准备硬件系统和 C 项目。",
+      note: "适合作为硬件/芯片方向补充。"
+    },
+    {
+      market: "uk",
+      role: "imaging",
+      company: "Sony Europe",
+      size: "大型外企",
+      companyType: "日企",
+      location: "UK / Europe",
+      hub: "london",
+      match: 78,
+      success: 34,
+      url: "https://www.sonyjobs.com/",
+      risk: "岗位可能偏软件/产品，需要筛选 imaging、sensor、R&D。",
+      note: "适合把成像、视觉和传感器项目包装为 imaging R&D。"
+    },
+    {
+      market: "uk",
+      role: "embedded",
+      company: "Samsung Research UK",
+      size: "大型外企",
+      companyType: "韩企",
+      location: "Staines-upon-Thames / Cambridge",
+      hub: "south",
+      match: 76,
+      success: 32,
+      url: "https://research.samsung.com/sruk",
+      risk: "入口可能跳转具体招聘平台，需要搜索 SRUK careers。",
+      note: "可看通信、AI、vision、embedded research。"
+    },
+    {
+      market: "uk",
+      role: "sensor",
+      company: "ABB",
+      size: "大型外企",
+      companyType: "瑞士/瑞典企业",
+      location: "UK / Europe",
+      hub: "midlands",
+      match: 79,
+      success: 45,
+      url: "https://global.abb/group/en/careers",
+      risk: "更偏自动化/电气，需要筛选 instrumentation、measurement、control。",
+      note: "测控、传感器和自动化经历可用。"
+    },
+    {
+      market: "uk",
+      role: "sensor",
+      company: "Honeywell",
+      size: "大型外企",
+      companyType: "美企",
+      location: "UK / Europe",
+      hub: "midlands",
+      match: 78,
+      success: 40,
+      url: "https://careers.honeywell.com/",
+      risk: "航空/安全相关岗位需检查国籍和审查要求。",
+      note: "适合传感器、航空检测、自动化和测试方向。"
+    },
+    {
+      market: "uk",
+      role: "semiconductor",
+      company: "KLA",
+      size: "大型外企",
+      companyType: "美企",
+      location: "Newport / UK / Europe",
+      hub: "south",
+      match: 84,
+      success: 41,
+      url: "https://www.kla.com/careers",
+      risk: "半导体量测设备岗位需要突出表征、误差分析和测试方法。",
+      note: "与你的 SEM/profilometry、probe station 和薄膜项目相关。"
+    },
+    {
+      market: "uk",
+      role: "semiconductor",
+      company: "ASML",
+      size: "大型外企",
+      companyType: "荷兰企业",
+      location: "UK / Netherlands / Europe",
+      hub: "cambridge",
+      match: 82,
+      success: 36,
+      url: "https://www.asml.com/en/careers",
+      risk: "岗位多在荷兰，若扩大到欧洲需考虑签证和搬迁。",
+      note: "纳米制造、光刻、设备和仪器背景匹配。"
+    },
+    {
+      market: "uk",
+      role: "semiconductor",
+      company: "Lam Research",
+      size: "大型外企",
+      companyType: "美企",
+      location: "UK / Europe",
+      hub: "midlands",
+      match: 80,
+      success: 38,
+      url: "https://www.lamresearch.com/careers/",
+      risk: "设备/工艺岗位需要突出 cleanroom 和 process flow。",
+      note: "适合半导体设备、工艺和应用工程方向。"
+    }
+  ].map(makeOpportunity)
+);
+
+const internshipProfiles = [
+  {
+    market: "cn",
+    role: "embedded",
+    company: "Tesla China",
+    size: "大型外企",
+    companyType: "美企 / 新能源汽车",
+    location: "上海 / 北京 / 深圳",
+    hub: "shanghai",
+    match: 84,
+    success: 38,
+    url: "https://www.tesla.com/careers/search/?query=intern&site=CN",
+    risk: "实习批次变化快，需筛 engineering、manufacturing、battery、vehicle firmware。",
+    note: "适合嵌入式、传感器、测试、电子电气和制造工程实习。"
+  },
+  {
+    market: "uk",
+    role: "embedded",
+    company: "Tesla",
+    size: "大型外企",
+    companyType: "美企 / 新能源汽车",
+    location: "UK / Europe / US",
+    hub: "london",
+    match: 82,
+    success: 30,
+    url: "https://www.tesla.com/careers/search/?query=internship",
+    risk: "全球实习竞争强，部分岗位需要当地工作许可。",
+    note: "适合投 firmware、test engineering、battery、vehicle systems。"
+  },
+  {
+    market: "cn",
+    role: "imaging",
+    company: "ByteDance",
+    size: "大型中企",
+    companyType: "互联网 / AI",
+    location: "北京 / 上海 / 深圳 / 杭州",
+    hub: "shanghai",
+    match: 78,
+    success: 34,
+    url: "https://jobs.bytedance.com/en/campus",
+    risk: "算法实习竞争强，需要突出 Python、YOLO、数据处理和工程部署。",
+    note: "适合视觉算法、AI 工程、数据处理和边缘推理方向。"
+  },
+  {
+    market: "uk",
+    role: "imaging",
+    company: "ByteDance / TikTok",
+    size: "大型中企",
+    companyType: "互联网 / AI",
+    location: "London / Europe",
+    hub: "london",
+    match: 74,
+    success: 25,
+    url: "https://joinbytedance.com/earlycareers",
+    risk: "伦敦实习竞争很强，更偏软件/算法，需要作品集。",
+    note: "适合 AI、computer vision、data engineering、trust and safety 技术岗。"
+  },
+  {
+    market: "cn",
+    role: "rf",
+    company: "Huawei",
+    size: "大型中企",
+    companyType: "通信 / 终端",
+    location: "深圳 / 上海 / 杭州 / 北京 / 西安",
+    hub: "shenzhen",
+    match: 91,
+    success: 43,
+    url: "https://career.huawei.com/reccampportal/portal5/index.html",
+    risk: "笔试和多轮技术面强，需准备 RF、通信、C/嵌入式和项目深挖。",
+    note: "适合射频、天线、硬件测试、终端传感器和算法实习。"
+  },
+  {
+    market: "cn",
+    role: "imaging",
+    company: "DJI",
+    size: "大型中企",
+    companyType: "机器人 / 无人机",
+    location: "深圳 / 上海 / 北京",
+    hub: "shenzhen",
+    match: 88,
+    success: 31,
+    url: "https://we.dji.com/zh-CN/campus",
+    risk: "技术深挖强，建议准备实时推理或传感器项目作品集。",
+    note: "适合视觉感知、嵌入式、硬件测试和传感器实习。"
+  },
+  {
+    market: "cn",
+    role: "sensor",
+    company: "Hikvision",
+    size: "大型中企",
+    companyType: "机器视觉 / 安防",
+    location: "杭州 / 武汉 / 西安 / 多地",
+    hub: "hangzhou",
+    match: 92,
+    success: 52,
+    url: "https://campushr.hikvision.com/school",
+    risk: "岗位很多，需要按图像算法、硬件测试、传感器细分筛选。",
+    note: "适合工业视觉、传感器、NDT 缺陷检测和测试工程实习。"
+  },
+  {
+    market: "cn",
+    role: "embedded",
+    company: "Xiaomi",
+    size: "大型中企",
+    companyType: "消费电子 / 智能汽车",
+    location: "北京 / 上海 / 深圳 / 武汉 / 南京",
+    hub: "shanghai",
+    match: 84,
+    success: 46,
+    url: "https://hr.xiaomi.com/campus",
+    risk: "实习岗位多但竞争强，需筛硬件、影像、汽车电子和嵌入式。",
+    note: "适合传感器、嵌入式、硬件测试、影像算法和汽车电子实习。"
+  },
+  {
+    market: "cn",
+    role: "embedded",
+    company: "OPPO",
+    size: "大型中企",
+    companyType: "消费电子",
+    location: "深圳 / 东莞 / 上海 / 成都",
+    hub: "shenzhen",
+    match: 83,
+    success: 47,
+    url: "https://careers.oppo.com/campus",
+    risk: "需要筛影像、硬件、射频、测试和嵌入式岗位。",
+    note: "适合手机影像、传感器、射频和硬件系统实习。"
+  },
+  {
+    market: "cn",
+    role: "embedded",
+    company: "vivo",
+    size: "大型中企",
+    companyType: "消费电子",
+    location: "深圳 / 东莞 / 上海 / 南京",
+    hub: "shenzhen",
+    match: 82,
+    success: 48,
+    url: "https://hr.vivo.com/",
+    risk: "官网岗位批次变化快，关注暑期实习与提前批。",
+    note: "适合传感器、影像、嵌入式和硬件测试实习。"
+  },
+  {
+    market: "cn",
+    role: "rf",
+    company: "HONOR",
+    size: "大型中企",
+    companyType: "消费电子",
+    location: "深圳 / 北京 / 西安 / 南京",
+    hub: "shenzhen",
+    match: 84,
+    success: 45,
+    url: "https://career.hihonor.com/",
+    risk: "如域名临时不可访问，可从荣耀官网招聘入口进入。",
+    note: "适合射频、天线、硬件测试和终端传感器实习。"
+  },
+  {
+    market: "cn",
+    role: "rf",
+    company: "ZTE",
+    size: "大型中企",
+    companyType: "通信设备",
+    location: "深圳 / 南京 / 西安 / 武汉",
+    hub: "shenzhen",
+    match: 86,
+    success: 50,
+    url: "https://job.zte.com.cn/cn/campus-recruitment",
+    risk: "需准备通信基础、射频链路、C/嵌入式和笔试。",
+    note: "适合通信射频、天线、硬件测试和算法实习。"
+  },
+  {
+    market: "cn",
+    role: "semiconductor",
+    company: "SMIC",
+    size: "大型中企",
+    companyType: "晶圆制造",
+    location: "上海 / 北京 / 深圳 / 天津",
+    hub: "shanghai",
+    match: 84,
+    success: 46,
+    url: "https://www.smics.com/en/site/human",
+    risk: "更偏工艺/设备/量测，需要强调 cleanroom、薄膜和表征。",
+    note: "适合工艺、设备、量测、良率和测试实习。"
+  },
+  {
+    market: "cn",
+    role: "semiconductor",
+    company: "Hua Hong Semiconductor",
+    size: "大型中企",
+    companyType: "晶圆制造",
+    location: "上海 / 无锡",
+    hub: "shanghai",
+    match: 82,
+    success: 49,
+    url: "https://www.huahonggrace.com/",
+    risk: "官网入口较泛，需要搜索校园招聘/实习/工艺工程。",
+    note: "适合工艺、设备、量测和半导体制造实习。"
+  },
+  {
+    market: "cn",
+    role: "semiconductor",
+    company: "BOE",
+    size: "大型中企",
+    companyType: "显示 / 传感",
+    location: "北京 / 合肥 / 成都 / 武汉 / 重庆",
+    hub: "hangzhou",
+    match: 82,
+    success: 55,
+    url: "https://campus.boe.com/",
+    risk: "岗位偏制造和显示工艺，需要筛 R&D、设备、工艺和传感方向。",
+    note: "适合显示工艺、传感器、设备和量测实习。"
+  },
+  {
+    market: "cn",
+    role: "imaging",
+    company: "Sunny Optical",
+    size: "大型中企",
+    companyType: "光学 / 成像",
+    location: "宁波 / 杭州 / 上海 / 中山",
+    hub: "yangtze",
+    match: 89,
+    success: 56,
+    url: "https://www.sunnyoptical.com/jobs.html",
+    risk: "入口可能按地区跳转，需要确认实习批次。",
+    note: "适合光学、图像算法、电子设计和工艺技术实习。"
+  },
+  {
+    market: "cn",
+    role: "sensor",
+    company: "Hesai Technology",
+    size: "中大型中企",
+    companyType: "激光雷达",
+    location: "上海 / 杭州 / 深圳",
+    hub: "shanghai",
+    match: 88,
+    success: 45,
+    url: "https://www.hesaitech.com/cn/careers",
+    risk: "技术面会深挖传感器、测试和硬件调试。",
+    note: "适合激光雷达、传感器、硬件测试和嵌入式实习。"
+  },
+  {
+    market: "cn",
+    role: "sensor",
+    company: "RoboSense",
+    size: "中大型中企",
+    companyType: "激光雷达",
+    location: "深圳 / 上海",
+    hub: "shenzhen",
+    match: 83,
+    success: 40,
+    url: "https://www.robosense.cn/social-show-2",
+    risk: "实习岗位不稳定，需要频繁刷新。",
+    note: "适合激光雷达硬件测试、传感器和感知实习。"
+  },
+  {
+    market: "cn",
+    role: "sensor",
+    company: "Innovusion",
+    size: "中型中企",
+    companyType: "激光雷达",
+    location: "苏州 / 上海 / 北京",
+    hub: "yangtze",
+    match: 84,
+    success: 43,
+    url: "https://www.innovusion.com/careers",
+    risk: "官网可能超时，建议浏览器手动打开并搜索 internship。",
+    note: "适合 LiDAR、传感器、硬件测试和嵌入式实习。"
+  }
+];
+
+roles.push(...internshipProfiles.map(makeInternship));
+
+const additionalInternshipRowsA = [
+  ["uk", "semiconductor", "NVIDIA", "大型外企", "美企 / AI 芯片", "UK / Europe", "cambridge", 82, 28, "https://www.nvidia.com/en-us/about-nvidia/careers/", "竞争极强，需要突出 Python、GPU、视觉或嵌入式项目。", "适合 AI、computer vision、embedded systems、hardware validation 实习。"],
+  ["uk", "semiconductor", "AMD", "大型外企", "美企 / 芯片", "UK / Europe", "cambridge", 75, 30, "https://www.amd.com/en/corporate/careers.html", "芯片岗位偏设计/验证，需要补硬件系统关键词。", "适合硬件验证、embedded、silicon systems 实习。"],
+  ["uk", "semiconductor", "Intel", "大型外企", "美企 / 芯片", "UK / Europe", "midlands", 74, 31, "https://jobs.intel.com/", "官网脚本检查可能有证书问题，浏览器通常可打开。", "适合 semiconductor、hardware、process 或 validation 实习。"],
+  ["uk", "embedded", "Qualcomm", "大型外企", "美企 / 通信芯片", "Cambridge / London / Europe", "cambridge", 78, 29, "https://www.qualcomm.com/company/careers", "岗位竞争强，需突出通信、嵌入式和 RF 基础。", "适合 modem、RF、embedded software、hardware systems 实习。"],
+  ["uk", "semiconductor", "Arm", "大型英企/外企", "芯片 IP", "Cambridge / Manchester", "cambridge", 78, 36, "https://careers.arm.com/early-careers", "偏芯片/软件，需要强调 C、硬件系统和数字电路。", "适合 hardware、silicon、embedded software internship。"],
+  ["uk", "semiconductor", "ASML", "大型外企", "荷兰半导体设备", "UK / Netherlands / Europe", "cambridge", 82, 35, "https://www.asml.com/en/careers", "很多岗位在荷兰，需要考虑签证与搬迁。", "适合 lithography、process、equipment、metrology 实习。"],
+  ["uk", "semiconductor", "KLA", "大型外企", "美企 / 半导体量测", "Newport / UK / Europe", "south", 84, 39, "https://www.kla.com/careers", "量测岗位需突出表征、误差分析和测试方法。", "适合 metrology、inspection、applications engineering 实习。"],
+  ["uk", "semiconductor", "Lam Research", "大型外企", "美企 / 半导体设备", "UK / Europe", "midlands", 80, 37, "https://www.lamresearch.com/careers/", "工艺设备岗位需要 cleanroom 和 process flow 表达。", "适合 process、equipment、applications internship。"],
+  ["uk", "semiconductor", "Applied Materials", "大型外企", "美企 / 半导体设备", "UK / Europe", "midlands", 80, 36, "https://www.appliedmaterials.com/us/en/careers.html", "官网可能反爬，浏览器可尝试。", "适合 semiconductor equipment、process 和 service engineering 实习。"],
+  ["uk", "semiconductor", "Texas Instruments", "大型外企", "美企 / 模拟芯片", "UK / Europe", "midlands", 76, 39, "https://careers.ti.com/", "偏模拟/电源/应用，需要突出电路和传感器接口。", "适合 applications、analog、embedded internship。"],
+  ["uk", "semiconductor", "NXP", "大型外企", "荷兰半导体", "UK / Europe", "midlands", 77, 38, "https://nxp.wd3.myworkdayjobs.com/en-US/careers", "偏 MCU/汽车电子，需要突出 C 和硬件测试。", "适合 embedded、automotive electronics、applications 实习。"],
+  ["uk", "semiconductor", "STMicroelectronics", "大型外企", "法意半导体", "UK / Europe", "midlands", 78, 38, "https://www.st.com/content/st_com/en/about/careers.html", "官网可能超时，建议浏览器打开搜索 internship。", "适合 MCU、sensor、embedded 和 application 实习。"],
+  ["uk", "rf", "Analog Devices", "大型外企", "美企 / 模拟与 RF", "UK / Ireland / Europe", "cambridge", 87, 36, "https://www.analog.com/en/careers.html", "脚本检查可能超时，岗位技术门槛高。", "适合 RF、signal chain、analog applications internship。"],
+  ["uk", "rf", "Keysight Technologies", "大型外企", "美企 / 测试测量", "UK / Europe", "south", 88, 40, "https://www.keysight.com/us/en/careers.html", "官网可能 403，浏览器可尝试。", "适合 RF test、VNA、S-parameter、applications 实习。"],
+  ["uk", "rf", "Rohde & Schwarz", "大型外企", "德企 / 测试测量", "Fleet / UK / Europe", "south", 84, 38, "https://www.rohde-schwarz.com/uk/career/", "需要准备 RF measurement 英文项目讲解。", "适合射频测试、通信测试和应用工程实习。"],
+  ["uk", "sensor", "Emerson / NI", "大型外企", "美企 / 测试测量", "UK / Europe", "midlands", 85, 42, "https://www.emerson.com/en-us/careers", "需搜索 NI、LabVIEW、test systems。", "适合 LabVIEW、DAQ、传感器测试实习。"],
+  ["uk", "sensor", "ABB", "大型外企", "自动化", "UK / Europe", "midlands", 79, 44, "https://global.abb/group/en/careers", "需筛 instrumentation、measurement、control。", "适合测控、工业传感器和自动化实习。"],
+  ["uk", "embedded", "Bosch UK", "大型外企", "德企 / 汽车电子", "UK / Europe", "midlands", 81, 43, "https://www.bosch.co.uk/careers/", "岗位很宽，需筛 automotive electronics、sensors、embedded。", "适合汽车电子、传感器和嵌入式实习。"],
+  ["uk", "sensor", "Honeywell", "大型外企", "美企 / 自动化", "UK / Europe", "midlands", 78, 40, "https://careers.honeywell.com/", "航空/安全相关岗位需检查资格要求。", "适合传感器、测试、自动化和航空检测实习。"],
+  ["uk", "embedded", "Schneider Electric", "大型外企", "法企 / 能源自动化", "UK / Europe", "midlands", 77, 43, "https://www.se.com/ww/en/about-us/careers/overview.jsp", "官网可能反爬，需筛 engineering internship。", "适合电气、控制、嵌入式和测试实习。"],
+  ["uk", "imaging", "Sony Europe", "大型外企", "日企 / 成像", "UK / Europe", "london", 78, 34, "https://www.sonyjobs.com/", "需筛 imaging、sensor、R&D、AI。", "适合成像、视觉、传感器和算法实习。"],
+  ["uk", "imaging", "Samsung Research UK", "大型外企", "韩企 / R&D", "Staines / Cambridge", "south", 76, 32, "https://research.samsung.com/sruk", "入口可能跳招聘平台，需搜索 SRUK careers。", "适合通信、AI、vision、embedded research 实习。"],
+  ["uk", "imaging", "Coherent", "大型外企", "美企 / 光子", "UK / Europe", "south", 82, 39, "https://www.coherent.com/company/careers", "需要补 photonics、optics 和器件表征关键词。", "适合 photonics、laser、optical applications 实习。"],
+  ["uk", "imaging", "Lumentum", "大型外企", "美企 / 光通信", "Towcester / Europe", "midlands", 80, 37, "https://www.lumentum.com/en/careers", "偏光通信/激光器，需要突出 RF/光电交叉能力。", "适合 photonics、optical devices、test 实习。"],
+  ["uk", "imaging", "Hamamatsu Photonics", "大型外企", "日企 / 光电", "UK / Europe", "south", 83, 40, "https://www.hamamatsu.com/eu/en/our-company/career.html", "岗位不一定常年开放。", "适合光电传感器、成像和应用工程实习。"],
+  ["uk", "sensor", "Sensata Technologies", "大型外企", "美企 / 传感器", "UK / Europe", "midlands", 85, 43, "https://www.sensata.com/careers", "官网可能反爬，浏览器可尝试。", "适合工业/汽车传感器和测试实习。"],
+  ["uk", "sensor", "MKS Instruments", "大型外企", "美企 / 仪器", "UK / Europe", "south", 82, 40, "https://www.mks.com/careers", "需强调仪器和表征。", "适合 process control、laser/photonics、measurement 实习。"],
+  ["uk", "sensor", "Smiths Detection", "大型英企", "安全检测设备", "Hemel Hempstead / UK", "south", 84, 34, "https://www.smithsdetection.com/careers/", "安全检测设备可能有背景审查。", "适合 NDT、传感器、成像和仪器检测实习。"],
+  ["uk", "sensor", "Renishaw", "大型英企", "计量 / 仪器", "Gloucestershire / South Wales", "south", 86, 43, "https://www.renishaw.com/en/early-careers--25812", "需把 NDT 和精密测量写成 metrology 语言。", "适合 metrology、electronics、software 和 instrumentation 实习。"],
+  ["uk", "imaging", "Oxford Instruments", "大型英企", "科学仪器", "Oxford / Bristol / UK", "cambridge", 82, 39, "https://careers.oxinst.com/", "需强调纳米制造和仪器表征。", "适合科学仪器、半导体设备和应用工程实习。"],
+  ["uk", "imaging", "Oxford Nanopore Technologies", "大型英企", "生命科学仪器", "Oxford, UK", "cambridge", 76, 37, "https://nanoporetech.com/about/careers", "更偏生命科学仪器。", "适合 sensor、instrumentation、Lab-on-Chip 相关实习。"],
+  ["uk", "rf", "Filtronic", "中小型英企", "RF/微波", "Sedgefield / Leeds", "midlands", 90, 48, "https://filtronic.com/careers/", "官网可能 403，岗位少但高匹配。", "适合 RF/microwave、S 参数和测试实习。"],
+  ["uk", "embedded", "Plextek", "中小型英企", "工程咨询", "Cambridge, UK", "cambridge", 83, 38, "https://www.plextek.com/careers/", "咨询型岗位要求英文沟通。", "适合 RF、嵌入式、传感器和产品研发实习。"],
+  ["uk", "sensor", "Pickering Interfaces", "中小型英企", "测试测量", "Clacton-on-Sea, UK", "south", 82, 46, "https://www.pickeringtest.com/en-gb/careers", "官网可能 403，浏览器可尝试。", "适合测试硬件、DAQ、LabVIEW 和测控实习。"],
+  ["uk", "semiconductor", "Pragmatic Semiconductor", "中型英企", "柔性芯片", "Cambridge / Durham", "cambridge", 82, 41, "https://www.pragmaticsemi.com/careers/", "岗位批次变化快。", "适合薄膜、工艺和器件表征实习。"]
+];
+
+roles.push(
+  ...additionalInternshipRowsA.map(
+    ([
+      market,
+      role,
+      company,
+      size,
+      companyType,
+      location,
+      hub,
+      match,
+      success,
+      url,
+      risk,
+      note
+    ]) =>
+      makeInternship({
+        market,
+        role,
+        company,
+        size,
+        companyType,
+        location,
+        hub,
+        match,
+        success,
+        url,
+        risk,
+        note
+      })
+  )
+);
+
+const additionalInternshipRowsB = [
+  ["uk", "imaging", "Fraunhofer CAP", "中型机构", "光子 / 应用研究", "Glasgow, UK", "scotland", 80, 42, "https://www.fraunhofer.co.uk/", "科研机构岗位少。", "适合 photonics、instrumentation 和实验系统实习。"],
+  ["uk", "imaging", "CSA Catapult", "中型机构", "半导体 / 光子", "Newport, UK", "south", 84, 43, "https://csa.catapult.org.uk/careers/", "岗位少但方向贴合。", "适合 RF/光子、器件、表征和测试实习。"],
+  ["uk", "sensor", "Oxford Ionics", "小型深科技", "量子硬件", "Oxford, UK", "cambridge", 76, 28, "https://www.oxionics.com/careers", "岗位少且门槛高。", "适合 RF、微波、仪器和纳米制造实习。"],
+  ["uk", "imaging", "Nu Quantum", "小型深科技", "量子光子", "Cambridge, UK", "cambridge", 74, 27, "https://www.nu-quantum.com/careers", "适合少量高定制投递。", "适合光子、传感和仪器实习。"],
+  ["uk", "sensor", "Sivers Photonics", "中小型企业", "光子芯片", "Glasgow, UK", "scotland", 82, 39, "https://www.sivers-semiconductors.com/careers/", "岗位少，需关注 test engineer。", "适合光子、器件和测试实习。"],
+  ["uk", "embedded", "Rolls-Royce", "大型英企", "航空 / 能源", "Derby / Bristol / UK", "midlands", 76, 26, "https://careers.rolls-royce.com/united-kingdom/students-and-graduates", "航空岗位可能有国籍/审查要求。", "适合 electronics、control、test engineering 实习。"],
+  ["uk", "sensor", "Airbus UK", "大型外企", "航空航天", "Bristol / Stevenage / UK", "south", 76, 24, "https://www.airbus.com/en/careers/students-and-graduates", "部分岗位有国籍/安全要求。", "适合 sensors、systems、electronics 实习。"],
+  ["uk", "rf", "BAE Systems", "大型英企", "国防 / 航空", "UK sites", "south", 88, 22, "https://jobs.baesystems.com/global/en/studentsandgraduates", "高匹配但安全审查风险最高。", "适合 RF、electronics、test、wireless internship。"],
+  ["uk", "rf", "Leonardo UK", "大型外企/英企", "雷达 / 电子", "Edinburgh / UK sites", "scotland", 90, 28, "https://careers.leonardo.com/search/jobs", "雷达岗位高匹配但需查 SC/国籍。", "适合 radar、electronics、sensors internship。"],
+  ["uk", "embedded", "QinetiQ", "大型英企", "测试评估 / 国防", "Farnborough / UK sites", "south", 86, 27, "https://www.qinetiq.com/en/careers/early-careers", "可能有安全审查。", "适合 test & evaluation、instrumentation、electronics 实习。"],
+  ["uk", "embedded", "Thales UK", "大型外企", "电子系统", "Crawley / Glasgow / Reading", "south", 86, 29, "https://careers.thalesgroup.com/global/en/uk-graduate-apprenticeships", "部分岗位可能需要安全审查。", "适合 systems、electronics、radar internship。"],
+  ["uk", "rf", "MBDA", "大型合资", "导弹 / RF", "Stevenage / Bristol / Bolton", "south", 87, 18, "https://www.mbdacareers.co.uk/early-careers", "国防导弹方向资格限制通常更严格。", "适合 RF、seeker、electronics 实习但风险高。"],
+  ["uk", "sensor", "TTP", "中型英企", "工程咨询", "Cambridge", "cambridge", 84, 36, "https://www.ttp.com/careers/early-careers/", "需要强英文项目表达。", "适合 sensors、electronics、consultant engineer internship。"],
+  ["uk", "sensor", "Cambridge Consultants", "中型外企/英企", "技术咨询", "Cambridge", "cambridge", 86, 38, "https://www.cambridgeconsultants.com/careers/early-careers/", "竞争强，需要定制简历。", "适合 RF、wireless、sensors、medical devices 实习。"],
+  ["uk", "imaging", "Canon Medical Research", "大型外企", "医疗成像", "Remote / Cambridge MA listing", "remote", 84, 36, "https://www.research.us.medical.canon/opportunities/intern-software-engineer/", "地点不一定在英国，但方向贴合。", "适合 imaging software、Python 和 medical AI 实习。"],
+  ["uk", "sensor", "Siemens Healthineers", "大型外企", "医疗设备", "UK sites", "south", 80, 40, "https://www.siemens-healthineers.com/en-uk/careers", "岗位批次变化快。", "适合 medical devices、sensors、LabVIEW 和 test 实习。"],
+  ["uk", "sensor", "Diamond Light Source", "科研机构", "大型科学设施", "Didcot, UK", "south", 83, 41, "https://www.diamond.ac.uk/Careers.html", "官网可能 403，浏览器可尝试。", "适合 instrumentation、electronics、data acquisition 实习。"],
+  ["uk", "sensor", "UKAEA", "科研机构", "核聚变", "Culham, Oxfordshire", "south", 79, 35, "https://careers.ukaea.uk/", "需检查资格要求。", "适合 diagnostics、instrumentation、RF 和传感器实习。"],
+  ["uk", "embedded", "Spirent Communications", "中型英企", "通信测试", "Crawley / Paignton", "south", 79, 44, "https://corporate.spirent.com/careers", "需突出通信测试和信号处理。", "适合 test systems、RF、embedded 实习。"],
+  ["uk", "semiconductor", "EnSilica", "中型英企", "芯片设计", "Oxford / Wokingham", "cambridge", 74, 34, "https://www.ensilica.com/", "官网 career 子页可能变化，需从首页找 careers。", "适合 IC/hardware systems 实习。"],
+  ["uk", "embedded", "Riverlane", "中小型深科技", "量子计算", "Cambridge", "cambridge", 70, 25, "https://www.riverlane.com/careers/", "偏软件/量子控制，需硬件相关岗位才投。", "适合 control、instrumentation、embedded 实习。"],
+  ["cn", "embedded", "Bosch China", "大型外企", "德企 / 汽车电子", "上海 / 苏州 / 长沙 / 无锡", "yangtze", 82, 51, "https://www.bosch.com.cn/careers/", "需筛研发/测试岗。", "适合汽车电子、传感器、嵌入式和测试实习。"],
+  ["cn", "embedded", "Siemens China", "大型外企", "德企 / 工业自动化", "北京 / 上海 / 成都 / 南京", "shanghai", 78, 49, "https://www.siemens.com/cn/zh/company/jobs.html", "需筛工程和 R&D。", "适合工业自动化、传感器、测试和控制实习。"],
+  ["cn", "sensor", "Schneider Electric China", "大型外企", "法企 / 电气自动化", "上海 / 北京 / 无锡 / 西安", "shanghai", 76, 50, "https://www.se.com/cn/zh/about-us/careers/overview.jsp", "官网可能反爬。", "适合电气、测控、自动化和硬件测试实习。"],
+  ["cn", "sensor", "ABB China", "大型外企", "自动化", "上海 / 北京 / 厦门 / 杭州", "shanghai", 78, 50, "https://global.abb/group/en/careers", "需筛 China 和 engineering。", "适合仪器、测控、工业传感器和自动化实习。"],
+  ["cn", "sensor", "Honeywell China", "大型外企", "美企 / 自动化", "上海 / 北京 / 苏州 / 西安", "shanghai", 78, 46, "https://careers.honeywell.com/", "航空/安全相关岗位要确认限制。", "适合传感器、航空检测、自动化和测试实习。"],
+  ["cn", "sensor", "Keyence China", "大型外企", "日企 / 工业传感器", "上海 / 深圳 / 全国", "shanghai", 76, 55, "https://www.keyence.com.cn/ss/careers/", "部分岗位偏技术销售，需谨慎筛选。", "适合传感器、测量和工业视觉应用实习。"],
+  ["cn", "sensor", "SICK China", "中型外企", "德企 / 工业传感器", "上海 / 广州 / 北京", "shanghai", 80, 52, "https://www.sick.com/cn/zh/careers/w/career/", "岗位常偏应用/销售工程。", "适合工业传感器、测量和自动化实习。"],
+  ["cn", "sensor", "Mettler Toledo China", "大型外企", "瑞士 / 精密仪器", "上海 / 常州", "yangtze", 77, 52, "https://careers.mt.com/", "需筛 R&D/test。", "适合精密测量、仪器和传感系统实习。"],
+  ["cn", "imaging", "ZEISS China", "大型外企", "德企 / 光学计量", "上海 / 苏州 / 广州", "shanghai", 82, 44, "https://www.zeiss.com/career/en/home.html", "需筛 China、optics、metrology、imaging。", "适合成像、光学、计量和仪器实习。"],
+  ["cn", "sensor", "Thermo Fisher Scientific China", "大型外企", "美企 / 科学仪器", "上海 / 苏州 / 北京", "shanghai", 76, 48, "https://jobs.thermofisher.com/", "生命科学仪器岗位分散。", "适合仪器、传感器、Lab-on-Chip 和测试实习。"],
+  ["cn", "sensor", "Agilent China", "大型外企", "美企 / 科学仪器", "上海 / 北京 / 成都", "shanghai", 75, 47, "https://careers.agilent.com/", "岗位可能偏应用/服务。", "适合仪器测量和传感系统实习。"],
+  ["cn", "semiconductor", "ASML China", "大型外企", "荷兰 / 半导体设备", "上海 / 深圳 / 北京 / 无锡", "shanghai", 83, 42, "https://www.asml.com/en/careers", "竞争强，需突出光刻、工艺和设备。", "适合 lithography、equipment、process 实习。"],
+  ["cn", "semiconductor", "Applied Materials China", "大型外企", "美企 / 半导体设备", "上海 / 西安 / 北京", "shanghai", 82, 43, "https://www.appliedmaterials.com/us/en/careers.html", "官网可能反爬。", "适合半导体设备、薄膜和工艺实习。"],
+  ["cn", "semiconductor", "Lam Research China", "大型外企", "美企 / 半导体设备", "上海 / 武汉 / 无锡", "shanghai", 80, 42, "https://www.lamresearch.com/careers/", "需把项目写成设备/工艺工程语言。", "适合 process、equipment 和 application 实习。"]
+];
+
+roles.push(
+  ...additionalInternshipRowsB.map(
+    ([
+      market,
+      role,
+      company,
+      size,
+      companyType,
+      location,
+      hub,
+      match,
+      success,
+      url,
+      risk,
+      note
+    ]) =>
+      makeInternship({
+        market,
+        role,
+        company,
+        size,
+        companyType,
+        location,
+        hub,
+        match,
+        success,
+        url,
+        risk,
+        note
+      })
+  )
+);
+
+const additionalInternshipRowsC = [
+  ["cn", "semiconductor", "KLA China", "大型外企", "美企 / 量测检测", "上海 / 深圳 / 西安", "shanghai", 84, 44, "https://www.kla.com/careers", "量测/检测岗位需强调表征和误差分析。", "适合 metrology、inspection 和 applications 实习。"],
+  ["cn", "semiconductor", "Texas Instruments China", "大型外企", "美企 / 模拟芯片", "上海 / 深圳 / 北京 / 成都", "shanghai", 77, 43, "https://careers.ti.com/", "偏模拟/电源/应用。", "适合模拟电路、传感器接口和应用工程实习。"],
+  ["cn", "semiconductor", "NXP China", "大型外企", "荷兰 / 汽车半导体", "上海 / 天津 / 苏州 / 深圳", "shanghai", 77, 42, "https://nxp.wd3.myworkdayjobs.com/en-US/careers", "偏芯片/汽车电子。", "适合 MCU、汽车电子和硬件测试实习。"],
+  ["cn", "semiconductor", "STMicroelectronics China", "大型外企", "法意半导体", "上海 / 深圳 / 北京", "shanghai", 78, 43, "https://www.st.com/content/st_com/en/about/careers.html", "需搜索 China + intern。", "适合 MCU、sensor、embedded 和 application 实习。"],
+  ["cn", "embedded", "Renesas China", "大型外企", "日企 / MCU", "北京 / 上海 / 深圳 / 苏州", "shanghai", 76, 43, "https://www.renesas.com/us/en/about/careers", "偏 MCU/汽车电子。", "适合 Embedded C、MCU 和传感器驱动实习。"],
+  ["cn", "rf", "Qorvo China", "大型外企", "美企 / RF 前端", "上海 / 深圳", "shanghai", 82, 39, "https://www.qorvo.com/careers", "RF 前端岗位竞争强。", "适合 RF front-end、applications 和测试实习。"],
+  ["cn", "rf", "Maxscend", "大型中企", "射频前端芯片", "无锡 / 上海 / 深圳", "yangtze", 86, 46, "https://www.maxscend.com/cn/join.aspx", "官网可能 403，浏览器可尝试。", "适合 RF 前端、测试和应用实习。"],
+  ["cn", "semiconductor", "NAURA", "大型中企", "半导体设备", "北京 / 上海 / 无锡", "shanghai", 83, 52, "https://www.naura.com/", "官网入口较泛，需找招聘/校园招聘。", "适合半导体设备、工艺和测试实习。"],
+  ["cn", "semiconductor", "AMEC", "大型中企", "半导体设备", "上海 / 南昌", "shanghai", 82, 51, "https://www.amec-inc.com/en/", "需筛 process、equipment、test。", "适合刻蚀/沉积设备、工艺和应用实习。"],
+  ["cn", "semiconductor", "JCET Group", "大型中企", "半导体封测", "江阴 / 宿迁 / 上海", "yangtze", 76, 55, "https://www.jcetglobal.com/site/join", "需筛工程研发和设备方向。", "适合精密测量、工艺和设备测试实习。"],
+  ["cn", "semiconductor", "Will Semiconductor / OmniVision", "大型中企", "图像传感器", "上海 / 北京 / 深圳", "shanghai", 88, 44, "https://www.omnivision-group.com/careers/", "需补 CMOS sensor 基础。", "适合图像传感器、成像和测试实习。"],
+  ["cn", "semiconductor", "GigaDevice", "大型中企", "芯片设计", "北京 / 上海 / 合肥 / 西安", "shanghai", 74, 45, "https://www.gigadevice.com.cn/about/career", "偏芯片设计/MCU。", "适合 MCU、Embedded C 和硬件测试实习。"],
+  ["cn", "embedded", "CATL", "大型中企", "新能源电池", "宁德 / 上海 / 溧阳 / 成都", "yangtze", 76, 56, "https://catl.zhiye.com/", "方向偏新能源制造。", "适合 BMS、传感器、测试和电子电气实习。"],
+  ["cn", "embedded", "BYD", "大型中企", "汽车电子 / 新能源", "深圳 / 西安 / 长沙 / 合肥", "shenzhen", 78, 55, "https://job.byd.com/", "岗位量大但方向需精筛。", "适合传感器、硬件测试、电子电气和嵌入式实习。"],
+  ["cn", "sensor", "NIO", "大型中企", "智能汽车", "上海 / 合肥 / 北京 / 深圳", "shanghai", 78, 43, "https://campus.nio.com/#/", "需筛智能硬件、传感器、测试。", "适合车载传感器、硬件测试和感知实习。"],
+  ["cn", "sensor", "XPeng Motors", "大型中企", "智能汽车", "广州 / 深圳 / 上海 / 武汉", "guangzhou", 79, 44, "https://hr.xiaopeng.com/", "域名可能临时解析失败，可从官网招聘入口进入。", "适合感知、硬件、测试和嵌入式实习。"],
+  ["cn", "embedded", "Li Auto", "大型中企", "智能汽车", "北京 / 上海 / 常州", "shanghai", 76, 43, "https://www.lixiang.com/employ/campus.html", "需筛硬件、传感器和测试。", "适合嵌入式、传感器和测试实习。"],
+  ["cn", "embedded", "Geely", "大型中企", "汽车", "杭州 / 宁波 / 上海 / 西安", "hangzhou", 75, 54, "https://campus.geely.com/", "岗位量大但方向需筛选。", "适合测控、传感器和汽车电子实习。"],
+  ["cn", "imaging", "Horizon Robotics", "大型中企", "自动驾驶芯片", "北京 / 上海 / 深圳 / 南京", "shanghai", 77, 38, "https://www.horizon.ai/careers", "更偏算法/芯片软件。", "适合视觉感知、边缘 AI 和嵌入式实习。"],
+  ["cn", "imaging", "Black Sesame Technologies", "中型中企", "自动驾驶芯片", "上海 / 武汉 / 深圳", "shanghai", 76, 39, "https://www.blacksesame.com.cn/", "需精准匹配感知或硬件测试。", "适合视觉、芯片测试和嵌入式实习。"],
+  ["cn", "imaging", "Momenta", "中型中企", "自动驾驶算法", "北京 / 上海 / 苏州", "yangtze", 73, 32, "https://www.momenta.ai/join.html", "更偏算法，需要强 CV 项目。", "适合视觉感知和数据处理实习。"],
+  ["cn", "embedded", "Unitree Robotics", "中型中企", "机器人", "杭州", "hangzhou", 80, 40, "https://www.unitree.com/cn/careers/", "机器人岗位技术面综合。", "适合嵌入式、传感器、控制和硬件实习。"],
+  ["cn", "sensor", "Goertek", "大型中企", "声学 / 光学 / 传感器", "潍坊 / 青岛 / 上海 / 深圳", "yangtze", 86, 58, "https://career.goertek.com/", "官网可能超时，建议浏览器手动打开。", "适合声学、光学、传感器和电子硬件实习。"],
+  ["cn", "embedded", "Lenovo", "大型中企/外企化", "PC / 智能设备", "北京 / 上海 / 深圳 / 武汉", "shanghai", 78, 52, "https://jobs.lenovo.com/", "岗位方向宽，需筛 hardware、test、IoT。", "适合硬件测试、嵌入式和 IoT 实习。"],
+  ["cn", "embedded", "Foxconn Industrial Internet", "大型中企", "智能制造", "深圳 / 郑州 / 太原 / 武汉", "shenzhen", 76, 56, "https://www.fii-foxconn.com/careers", "需避开低相关制造管理。", "适合测控、传感器、自动化和测试实习。"],
+  ["cn", "rf", "Comba Telecom", "中型中企", "通信射频", "广州 / 西安 / 南京", "guangzhou", 80, 49, "https://www.comba-telecom.com/en/careers", "知名度低于大厂但方向贴合。", "适合 RF、天线和通信硬件实习。"],
+  ["cn", "sensor", "Dahua Technology", "大型中企", "机器视觉 / 安防", "杭州 / 多地", "hangzhou", 86, 52, "https://job.dahuatech.com/", "需筛图像算法、硬件测试和传感器方向。", "适合工业视觉、传感器和测试实习。"],
+  ["cn", "imaging", "Megvii", "中型中企", "AI / 视觉", "北京 / 上海 / 深圳", "shanghai", 72, 34, "https://www.megvii.com/join-us", "更偏算法，需准备 CV 项目。", "适合视觉算法和图像处理实习。"],
+  ["cn", "imaging", "SenseTime", "大型中企", "AI / 视觉", "上海 / 北京 / 深圳", "shanghai", 72, 32, "https://www.sensetime.com/cn/join-index", "算法竞争强，需要作品集和代码项目。", "适合 CV、AI 工程和数据处理实习。"],
+  ["cn", "embedded", "Midea Group", "大型中企", "智能家电 / 自动化", "佛山 / 上海 / 合肥 / 无锡", "guangzhou", 76, 55, "https://careers.midea.com/", "需筛硬件、传感器、嵌入式和自动化。", "适合智能硬件、传感器和测试实习。"],
+  ["cn", "embedded", "Haier", "大型中企", "智能家电 / IoT", "青岛 / 上海 / 合肥", "yangtze", 75, 54, "https://wx.maker.haier.net/client/campus/dynamic.html", "需筛 IoT、硬件和测试方向。", "适合嵌入式、传感器和智能硬件实习。"],
+  ["cn", "sensor", "Mindray", "大型中企", "医疗设备", "深圳 / 南京 / 武汉", "shenzhen", 80, 50, "https://career.mindray.com/", "需筛硬件、传感器、算法和测试。", "适合医疗仪器、传感器和嵌入式实习。"]
+];
+
+roles.push(
+  ...additionalInternshipRowsC.map(
+    ([
+      market,
+      role,
+      company,
+      size,
+      companyType,
+      location,
+      hub,
+      match,
+      success,
+      url,
+      risk,
+      note
+    ]) =>
+      makeInternship({
+        market,
+        role,
+        company,
+        size,
+        companyType,
+        location,
+        hub,
+        match,
+        success,
+        url,
+        risk,
+        note
+      })
+  )
+);
+
+roles.push(
+  ...[
+    {
+      market: "uk",
+      role: "imaging",
+      company: "Coherent",
+      size: "大型外企",
+      companyType: "美企",
+      location: "UK / Europe",
+      hub: "south",
+      match: 82,
+      success: 39,
+      url: "https://www.coherent.com/company/careers",
+      risk: "光电/激光岗位需要补 photonics、optics 和器件表征关键词。",
+      note: "成像、薄膜、光电和仪器背景可投 photonics applications。"
+    },
+    {
+      market: "uk",
+      role: "imaging",
+      company: "Lumentum",
+      size: "大型外企",
+      companyType: "美企",
+      location: "Towcester / UK / Europe",
+      hub: "midlands",
+      match: 80,
+      success: 37,
+      url: "https://www.lumentum.com/en/careers",
+      risk: "岗位偏光通信/激光器，需要强调 RF/光电交叉能力。",
+      note: "适合 photonics、optical devices 和测试工程。"
+    },
+    {
+      market: "uk",
+      role: "imaging",
+      company: "Hamamatsu Photonics",
+      size: "大型外企",
+      companyType: "日企",
+      location: "UK / Europe",
+      hub: "south",
+      match: 83,
+      success: 40,
+      url: "https://www.hamamatsu.com/eu/en/our-company/career.html",
+      risk: "岗位不一定常年开放，需要关注 sales/application/engineering。",
+      note: "传感器、成像和光电检测方向很贴合。"
+    },
+    {
+      market: "uk",
+      role: "sensor",
+      company: "Sensata Technologies",
+      size: "大型外企",
+      companyType: "美企",
+      location: "UK / Europe",
+      hub: "midlands",
+      match: 85,
+      success: 43,
+      url: "https://www.sensata.com/careers",
+      risk: "岗位偏工业/汽车传感器，需要突出测控和测试验证。",
+      note: "你的传感器接口、NDT、测量和嵌入式背景适合。"
+    },
+    {
+      market: "uk",
+      role: "embedded",
+      company: "TE Connectivity",
+      size: "大型外企",
+      companyType: "美企",
+      location: "UK / Europe",
+      hub: "midlands",
+      match: 78,
+      success: 42,
+      url: "https://careers.te.com/",
+      risk: "更偏连接器/汽车电子，需要筛选 sensor、test、electronics。",
+      note: "适合作为硬件测试和应用工程补充投递。"
+    },
+    {
+      market: "uk",
+      role: "sensor",
+      company: "Smiths Detection",
+      size: "大型外企",
+      companyType: "英企",
+      location: "Hemel Hempstead / UK",
+      hub: "south",
+      match: 84,
+      success: 34,
+      url: "https://www.smithsdetection.com/careers/",
+      risk: "安全检测设备可能有背景审查，需提前确认资格。",
+      note: "NDT、传感器、成像和仪器检测经历相关。"
+    },
+    {
+      market: "uk",
+      role: "sensor",
+      company: "MKS Instruments",
+      size: "大型外企",
+      companyType: "美企",
+      location: "UK / Europe",
+      hub: "south",
+      match: 82,
+      success: 40,
+      url: "https://www.mks.com/careers",
+      risk: "半导体/光子设备岗位需强调仪器和表征。",
+      note: "适合 process control、laser/photonics、measurement。"
+    },
+    {
+      market: "uk",
+      role: "semiconductor",
+      company: "Edwards Vacuum",
+      size: "大型外企",
+      companyType: "瑞典/英企",
+      location: "Burgess Hill / UK",
+      hub: "south",
+      match: 78,
+      success: 42,
+      url: "https://www.edwardsvacuum.com/en-us/join-us/early-careers",
+      risk: "更偏设备和制造工程，需要联系 cleanroom/process experience。",
+      note: "纳米制造和半导体设备方向可投。"
+    },
+    {
+      market: "uk",
+      role: "imaging",
+      company: "Oxford Nanopore Technologies",
+      size: "大型英企",
+      companyType: "本土科技",
+      location: "Oxford, UK",
+      hub: "cambridge",
+      match: 76,
+      success: 37,
+      url: "https://nanoporetech.com/about/careers",
+      risk: "更偏生命科学仪器，需要突出 sensor/instrumentation。",
+      note: "SIS 生物传感和 Lab-on-Chip 课程可用于匹配。"
+    },
+    {
+      market: "uk",
+      role: "embedded",
+      company: "Spirent Communications",
+      size: "中型英企",
+      companyType: "通信测试",
+      location: "Crawley / Paignton / UK",
+      hub: "south",
+      match: 79,
+      success: 44,
+      url: "https://corporate.spirent.com/careers",
+      risk: "通信测试岗位需突出 RF、信号处理和测试系统。",
+      note: "适合作为通信测试中型公司补充。"
+    },
+    {
+      market: "uk",
+      role: "rf",
+      company: "Filtronic",
+      size: "中小型英企",
+      companyType: "RF/微波",
+      location: "Sedgefield / Leeds / UK",
+      hub: "midlands",
+      match: 90,
+      success: 48,
+      url: "https://filtronic.com/careers/",
+      risk: "岗位数量少但匹配度高，需要主动关注 vacancies。",
+      note: "RF/microwave、S 参数和 ADS/CST 方向非常贴。"
+    },
+    {
+      market: "uk",
+      role: "embedded",
+      company: "Plextek",
+      size: "中小型英企",
+      companyType: "工程咨询",
+      location: "Cambridge, UK",
+      hub: "cambridge",
+      match: 83,
+      success: 38,
+      url: "https://www.plextek.com/careers/",
+      risk: "咨询型岗位要求英文沟通和宽技术面。",
+      note: "RF、嵌入式、传感器和产品研发都相关。"
+    },
+    {
+      market: "uk",
+      role: "sensor",
+      company: "Pickering Interfaces",
+      size: "中小型英企",
+      companyType: "测试测量",
+      location: "Clacton-on-Sea, UK",
+      hub: "south",
+      match: 82,
+      success: 46,
+      url: "https://www.pickeringtest.com/en-gb/careers",
+      risk: "岗位偏测试硬件，需要强调仪器、采集和硬件调试。",
+      note: "LabVIEW、采集系统和测控背景适合。"
+    },
+    {
+      market: "uk",
+      role: "semiconductor",
+      company: "EnSilica",
+      size: "中型英企",
+      companyType: "芯片设计",
+      location: "Oxford / Wokingham / UK",
+      hub: "cambridge",
+      match: 74,
+      success: 34,
+      url: "https://www.ensilica.com/",
+      risk: "偏 IC design，若投需要补数字电路/验证项目表达。",
+      note: "适合半导体长线和硬件系统方向。"
+    },
+    {
+      market: "uk",
+      role: "semiconductor",
+      company: "Pragmatic Semiconductor",
+      size: "中型英企",
+      companyType: "柔性芯片",
+      location: "Cambridge / Durham",
+      hub: "cambridge",
+      match: 82,
+      success: 41,
+      url: "https://www.pragmaticsemi.com/careers/",
+      risk: "新兴半导体公司，岗位批次变化快。",
+      note: "薄膜、工艺、器件表征和 cleanroom 经历相关。"
+    },
+    {
+      market: "uk",
+      role: "imaging",
+      company: "Fraunhofer CAP",
+      size: "中型英企",
+      companyType: "光子/量子",
+      location: "Glasgow, UK",
+      hub: "scotland",
+      match: 80,
+      success: 42,
+      url: "https://www.fraunhofer.co.uk/",
+      risk: "科研机构岗位少，需要主动关注 vacancies 或 speculative applications。",
+      note: "Glasgow 本地优势，适合 photonics/instrumentation。"
+    },
+    {
+      market: "uk",
+      role: "imaging",
+      company: "Compound Semiconductor Applications Catapult",
+      size: "中型机构",
+      companyType: "半导体/光子",
+      location: "Newport, UK",
+      hub: "south",
+      match: 84,
+      success: 43,
+      url: "https://csa.catapult.org.uk/careers/",
+      risk: "岗位少但方向贴合，需持续关注。",
+      note: "薄膜、器件、RF/光子和表征经验相关。"
+    },
+    {
+      market: "uk",
+      role: "sensor",
+      company: "Oxford Ionics",
+      size: "小型深科技",
+      companyType: "量子硬件",
+      location: "Oxford, UK",
+      hub: "cambridge",
+      match: 76,
+      success: 28,
+      url: "https://www.oxionics.com/careers",
+      risk: "深科技门槛高，岗位少，需要强实验/仪器故事。",
+      note: "RF、微波、仪器和纳米制造可作为切入点。"
+    },
+    {
+      market: "uk",
+      role: "imaging",
+      company: "Nu Quantum",
+      size: "小型深科技",
+      companyType: "量子光子",
+      location: "Cambridge, UK",
+      hub: "cambridge",
+      match: 74,
+      success: 27,
+      url: "https://www.nu-quantum.com/careers",
+      risk: "岗位少且要求高，适合少量高定制投递。",
+      note: "成像、光子、传感和仪器背景可尝试。"
+    },
+    {
+      market: "uk",
+      role: "embedded",
+      company: "Riverlane",
+      size: "中小型深科技",
+      companyType: "量子计算",
+      location: "Cambridge, UK",
+      hub: "cambridge",
+      match: 70,
+      success: 25,
+      url: "https://www.riverlane.com/careers/",
+      risk: "偏软件/量子控制，与你背景有距离。",
+      note: "只有在岗位强调 hardware/control/instrumentation 时投。"
+    },
+    {
+      market: "uk",
+      role: "sensor",
+      company: "Sivers Photonics",
+      size: "中小型企业",
+      companyType: "光子芯片",
+      location: "Glasgow, UK",
+      hub: "scotland",
+      match: 82,
+      success: 39,
+      url: "https://www.sivers-semiconductors.com/careers/",
+      risk: "岗位少，需关注 photonics engineer 和 test engineer。",
+      note: "Glasgow 本地，适合光子、器件和测试方向。"
+    }
+  ].map(makeOpportunity)
+);
+
+roles.push(
+  ...[
+    {
+      market: "cn",
+      role: "embedded",
+      company: "Bosch China",
+      size: "大型外企",
+      companyType: "德企",
+      location: "上海 / 苏州 / 长沙 / 无锡",
+      hub: "yangtze",
+      match: 82,
+      success: 51,
+      url: "https://www.bosch.com.cn/careers/",
+      risk: "岗位覆盖汽车电子、传感器和制造，需要筛选研发/测试岗。",
+      note: "适合汽车电子、传感器、嵌入式和测试方向。"
+    },
+    {
+      market: "cn",
+      role: "embedded",
+      company: "Siemens China",
+      size: "大型外企",
+      companyType: "德企",
+      location: "北京 / 上海 / 成都 / 南京",
+      hub: "shanghai",
+      match: 78,
+      success: 49,
+      url: "https://www.siemens.com/cn/zh/company/jobs.html",
+      risk: "更偏自动化和工业软件，需要突出测控和仪器经验。",
+      note: "适合工业自动化、传感器、测试和控制方向。"
+    },
+    {
+      market: "cn",
+      role: "sensor",
+      company: "Schneider Electric China",
+      size: "大型外企",
+      companyType: "法企",
+      location: "上海 / 北京 / 无锡 / 西安",
+      hub: "shanghai",
+      match: 76,
+      success: 50,
+      url: "https://www.se.com/cn/zh/about-us/careers/overview.jsp",
+      risk: "需避开纯销售/运营岗位，筛 engineering 和 R&D。",
+      note: "适合电气、测控、自动化和硬件测试。"
+    },
+    {
+      market: "cn",
+      role: "sensor",
+      company: "ABB China",
+      size: "大型外企",
+      companyType: "瑞士/瑞典企业",
+      location: "上海 / 北京 / 厦门 / 杭州",
+      hub: "shanghai",
+      match: 78,
+      success: 50,
+      url: "https://global.abb/group/en/careers",
+      risk: "官网为全球入口，需要筛 China 和 engineering。",
+      note: "适合仪器、测控、工业传感器和自动化。"
+    },
+    {
+      market: "cn",
+      role: "sensor",
+      company: "Honeywell China",
+      size: "大型外企",
+      companyType: "美企",
+      location: "上海 / 北京 / 苏州 / 西安",
+      hub: "shanghai",
+      match: 78,
+      success: 46,
+      url: "https://careers.honeywell.com/",
+      risk: "航空和安全相关岗位要确认背景限制。",
+      note: "适合传感器、航空检测、自动化和测试。"
+    },
+    {
+      market: "cn",
+      role: "sensor",
+      company: "Keyence China",
+      size: "大型外企",
+      companyType: "日企",
+      location: "上海 / 深圳 / 全国",
+      hub: "shanghai",
+      match: 76,
+      success: 55,
+      url: "https://www.keyence.com.cn/ss/careers/",
+      risk: "部分岗位偏技术销售，若要技术路线需谨慎筛选。",
+      note: "传感器、测量和工业视觉背景可用于应用工程。"
+    },
+    {
+      market: "cn",
+      role: "sensor",
+      company: "SICK China",
+      size: "中型外企",
+      companyType: "德企",
+      location: "上海 / 广州 / 北京",
+      hub: "shanghai",
+      match: 80,
+      success: 52,
+      url: "https://www.sick.com/cn/zh/careers/w/career/",
+      risk: "岗位常偏应用/销售工程，需要筛技术支持和工程。",
+      note: "工业传感器、测量和自动化方向贴合。"
+    },
+    {
+      market: "cn",
+      role: "sensor",
+      company: "Mettler Toledo China",
+      size: "大型外企",
+      companyType: "瑞士企业",
+      location: "上海 / 常州",
+      hub: "yangtze",
+      match: 77,
+      success: 52,
+      url: "https://careers.mt.com/",
+      risk: "仪器岗位偏应用/服务，需筛 R&D/test。",
+      note: "适合精密测量、仪器和传感系统。"
+    },
+    {
+      market: "cn",
+      role: "imaging",
+      company: "ZEISS China",
+      size: "大型外企",
+      companyType: "德企",
+      location: "上海 / 苏州 / 广州",
+      hub: "shanghai",
+      match: 82,
+      success: 44,
+      url: "https://www.zeiss.com/career/en/home.html",
+      risk: "官网全球入口，需要筛 China、optics、metrology、imaging。",
+      note: "成像、光学、计量和仪器背景相关。"
+    },
+    {
+      market: "cn",
+      role: "sensor",
+      company: "Thermo Fisher Scientific China",
+      size: "大型外企",
+      companyType: "美企",
+      location: "上海 / 苏州 / 北京",
+      hub: "shanghai",
+      match: 76,
+      success: 48,
+      url: "https://jobs.thermofisher.com/",
+      risk: "生命科学仪器岗位分散，需要筛 engineering/test/instrumentation。",
+      note: "仪器、传感器、Lab-on-Chip 和数据采集背景可用。"
+    },
+    {
+      market: "cn",
+      role: "sensor",
+      company: "Agilent China",
+      size: "大型外企",
+      companyType: "美企",
+      location: "上海 / 北京 / 成都",
+      hub: "shanghai",
+      match: 75,
+      success: 47,
+      url: "https://careers.agilent.com/",
+      risk: "岗位可能偏应用/服务，需筛研发、测试、仪器工程。",
+      note: "仪器测量和传感系统经历相关。"
+    },
+    {
+      market: "cn",
+      role: "semiconductor",
+      company: "ASML China",
+      size: "大型外企",
+      companyType: "荷兰企业",
+      location: "上海 / 深圳 / 北京 / 无锡",
+      hub: "shanghai",
+      match: 83,
+      success: 42,
+      url: "https://www.asml.com/en/careers",
+      risk: "岗位竞争强，需突出光刻、工艺、设备和客户支持能力。",
+      note: "你的 nanofabrication 和 photolithography 是强匹配点。"
+    },
+    {
+      market: "cn",
+      role: "semiconductor",
+      company: "Applied Materials China",
+      size: "大型外企",
+      companyType: "美企",
+      location: "上海 / 西安 / 北京",
+      hub: "shanghai",
+      match: 82,
+      success: 43,
+      url: "https://www.appliedmaterials.com/us/en/careers.html",
+      risk: "设备/工艺岗位需要强调 cleanroom、thin film 和 characterization。",
+      note: "薄膜和半导体设备方向高相关。"
+    },
+    {
+      market: "cn",
+      role: "semiconductor",
+      company: "Lam Research China",
+      size: "大型外企",
+      companyType: "美企",
+      location: "上海 / 武汉 / 无锡",
+      hub: "shanghai",
+      match: 80,
+      success: 42,
+      url: "https://www.lamresearch.com/careers/",
+      risk: "需把课程项目写成设备/工艺工程语言。",
+      note: "适合 semiconductor equipment、process 和 applications。"
+    },
+    {
+      market: "cn",
+      role: "semiconductor",
+      company: "KLA China",
+      size: "大型外企",
+      companyType: "美企",
+      location: "上海 / 深圳 / 西安",
+      hub: "shanghai",
+      match: 84,
+      success: 44,
+      url: "https://www.kla.com/careers",
+      risk: "量测/检测岗位需要强调表征和误差分析。",
+      note: "SEM、profilometry、probe station 和缺陷检测经历很适合。"
+    },
+    {
+      market: "cn",
+      role: "semiconductor",
+      company: "Texas Instruments China",
+      size: "大型外企",
+      companyType: "美企",
+      location: "上海 / 深圳 / 北京 / 成都",
+      hub: "shanghai",
+      match: 77,
+      success: 43,
+      url: "https://careers.ti.com/",
+      risk: "岗位偏模拟/电源/销售应用，需筛 technical applications。",
+      note: "模拟电路、传感器接口和信号链背景可用。"
+    },
+    {
+      market: "cn",
+      role: "semiconductor",
+      company: "NXP China",
+      size: "大型外企",
+      companyType: "荷兰企业",
+      location: "上海 / 天津 / 苏州 / 深圳",
+      hub: "shanghai",
+      match: 77,
+      success: 42,
+      url: "https://nxp.wd3.myworkdayjobs.com/en-US/careers",
+      risk: "偏芯片/汽车电子，需要突出嵌入式和硬件测试。",
+      note: "MCU、传感器、汽车电子和硬件系统方向相关。"
+    },
+    {
+      market: "cn",
+      role: "semiconductor",
+      company: "STMicroelectronics China",
+      size: "大型外企",
+      companyType: "法意企业",
+      location: "上海 / 深圳 / 北京",
+      hub: "shanghai",
+      match: 78,
+      success: 43,
+      url: "https://www.st.com/content/st_com/en/about/careers.html",
+      risk: "需要搜索 China + MCU/sensor/application。",
+      note: "适合 MCU、传感器、嵌入式和应用工程。"
+    },
+    {
+      market: "cn",
+      role: "embedded",
+      company: "Renesas China",
+      size: "大型外企",
+      companyType: "日企",
+      location: "北京 / 上海 / 深圳 / 苏州",
+      hub: "shanghai",
+      match: 76,
+      success: 43,
+      url: "https://www.renesas.com/us/en/about/careers",
+      risk: "偏 MCU/汽车电子，需要突出 Embedded C。",
+      note: "你的 C/MCU 与传感器驱动经历可用。"
+    },
+    {
+      market: "cn",
+      role: "rf",
+      company: "Qorvo China",
+      size: "大型外企",
+      companyType: "美企",
+      location: "上海 / 深圳",
+      hub: "shanghai",
+      match: 82,
+      success: 39,
+      url: "https://www.qorvo.com/careers",
+      risk: "射频前端岗位竞争强，需要突出 RF measurement 和 microwave。",
+      note: "适合 RF front-end、applications 和测试。"
+    }
+  ].map(makeOpportunity)
+);
+
+roles.push(
+  ...[
+    {
+      market: "cn",
+      role: "embedded",
+      company: "OPPO",
+      size: "大型中企",
+      companyType: "消费电子",
+      location: "深圳 / 东莞 / 上海 / 成都",
+      hub: "shenzhen",
+      match: 82,
+      success: 48,
+      url: "https://careers.oppo.com/campus",
+      risk: "岗位竞争强，需要突出影像、传感器、嵌入式和硬件测试。",
+      note: "适合手机影像、传感器和硬件系统方向。"
+    },
+    {
+      market: "cn",
+      role: "embedded",
+      company: "vivo",
+      size: "大型中企",
+      companyType: "消费电子",
+      location: "深圳 / 东莞 / 上海 / 南京",
+      hub: "shenzhen",
+      match: 82,
+      success: 49,
+      url: "https://hr.vivo.com/",
+      risk: "需要筛硬件、影像、射频和嵌入式岗位。",
+      note: "传感器、影像和嵌入式项目可直接对应。"
+    },
+    {
+      market: "cn",
+      role: "rf",
+      company: "HONOR",
+      size: "大型中企",
+      companyType: "消费电子",
+      location: "深圳 / 北京 / 西安 / 南京",
+      hub: "shenzhen",
+      match: 83,
+      success: 47,
+      url: "https://career.hihonor.com/",
+      risk: "射频/天线岗位需要强通信基础与 RF 项目表达。",
+      note: "适合手机射频、天线、硬件和测试方向。"
+    },
+    {
+      market: "cn",
+      role: "embedded",
+      company: "Lenovo",
+      size: "大型中企/外企化",
+      companyType: "PC/智能设备",
+      location: "北京 / 上海 / 深圳 / 武汉",
+      hub: "shanghai",
+      match: 78,
+      success: 52,
+      url: "https://jobs.lenovo.com/",
+      risk: "岗位方向很宽，需要筛 hardware、test、IoT、embedded。",
+      note: "适合作为硬件测试和嵌入式补充。"
+    },
+    {
+      market: "cn",
+      role: "embedded",
+      company: "Foxconn Industrial Internet",
+      size: "大型中企",
+      companyType: "智能制造",
+      location: "深圳 / 郑州 / 太原 / 武汉",
+      hub: "shenzhen",
+      match: 76,
+      success: 56,
+      url: "https://www.fii-foxconn.com/careers",
+      risk: "需筛研发、测试、自动化岗位，避免低相关制造管理。",
+      note: "测控、传感器、自动化和测试经历可用。"
+    },
+    {
+      market: "cn",
+      role: "semiconductor",
+      company: "Hua Hong Semiconductor",
+      size: "大型中企",
+      companyType: "半导体制造",
+      location: "上海 / 无锡",
+      hub: "shanghai",
+      match: 82,
+      success: 50,
+      url: "https://www.huahonggrace.com/",
+      risk: "偏工艺/制造，需要强调 cleanroom、薄膜和表征。",
+      note: "适合工艺、设备、量测和良率工程。"
+    },
+    {
+      market: "cn",
+      role: "semiconductor",
+      company: "JCET Group",
+      size: "大型中企",
+      companyType: "半导体封测",
+      location: "江阴 / 宿迁 / 上海",
+      hub: "yangtze",
+      match: 76,
+      success: 55,
+      url: "https://www.jcetglobal.com/site/join",
+      risk: "封测岗位需筛工程研发和设备方向。",
+      note: "精密测量、工艺和设备测试经历可用。"
+    },
+    {
+      market: "cn",
+      role: "semiconductor",
+      company: "Will Semiconductor / OmniVision",
+      size: "大型中企",
+      companyType: "图像传感器",
+      location: "上海 / 北京 / 深圳",
+      hub: "shanghai",
+      match: 88,
+      success: 44,
+      url: "https://www.omnivision-group.com/careers/",
+      risk: "图像传感器岗位技术门槛高，需要补 CMOS sensor 基础。",
+      note: "成像、传感器、半导体和图像处理背景高度相关。"
+    },
+    {
+      market: "cn",
+      role: "semiconductor",
+      company: "GigaDevice",
+      size: "大型中企",
+      companyType: "芯片设计",
+      location: "北京 / 上海 / 合肥 / 西安",
+      hub: "shanghai",
+      match: 74,
+      success: 45,
+      url: "https://www.gigadevice.com.cn/about/career",
+      risk: "偏芯片设计/MCU，需要突出 C/嵌入式和电路。",
+      note: "适合作为 MCU/embedded 半导体方向补充。"
+    },
+    {
+      market: "cn",
+      role: "rf",
+      company: "Maxscend Microelectronics",
+      size: "大型中企",
+      companyType: "射频前端芯片",
+      location: "无锡 / 上海 / 深圳",
+      hub: "yangtze",
+      match: 86,
+      success: 46,
+      url: "https://www.maxscend.com/cn/join.aspx",
+      risk: "RFIC/前端要求更强电路基础，需要突出 RF 仿真和测量。",
+      note: "射频前端方向与 ADS/CST/S 参数背景相关。"
+    },
+    {
+      market: "cn",
+      role: "semiconductor",
+      company: "NAURA",
+      size: "大型中企",
+      companyType: "半导体设备",
+      location: "北京 / 上海 / 无锡",
+      hub: "shanghai",
+      match: 83,
+      success: 52,
+      url: "https://www.naura.com/",
+      risk: "设备岗位需强调工艺、真空、测试、机械电气协作。",
+      note: "纳米制造和工艺设备背景适合。"
+    },
+    {
+      market: "cn",
+      role: "semiconductor",
+      company: "AMEC",
+      size: "大型中企",
+      companyType: "半导体设备",
+      location: "上海 / 南昌",
+      hub: "shanghai",
+      match: 82,
+      success: 51,
+      url: "https://www.amec-inc.com/en/",
+      risk: "需筛 process、equipment、test 岗位。",
+      note: "薄膜、刻蚀/沉积概念和表征经历可用。"
+    },
+    {
+      market: "cn",
+      role: "sensor",
+      company: "Innovusion",
+      size: "中型中企",
+      companyType: "激光雷达",
+      location: "苏州 / 上海 / 北京",
+      hub: "yangtze",
+      match: 84,
+      success: 43,
+      url: "https://www.innovusion.com/careers",
+      risk: "岗位批次变化快，需要关注硬件、测试、感知。",
+      note: "LiDAR、传感器、嵌入式和信号处理背景相关。"
+    },
+    {
+      market: "cn",
+      role: "imaging",
+      company: "Horizon Robotics",
+      size: "大型中企",
+      companyType: "自动驾驶芯片",
+      location: "北京 / 上海 / 深圳 / 南京",
+      hub: "shanghai",
+      match: 77,
+      success: 38,
+      url: "https://www.horizon.ai/careers",
+      risk: "偏算法/芯片软件，需要突出 YOLO 和嵌入式推理。",
+      note: "适合视觉感知、边缘 AI 和嵌入式方向。"
+    },
+    {
+      market: "cn",
+      role: "imaging",
+      company: "Black Sesame Technologies",
+      size: "中型中企",
+      companyType: "自动驾驶芯片",
+      location: "上海 / 武汉 / 深圳",
+      hub: "shanghai",
+      match: 76,
+      success: 39,
+      url: "https://www.blacksesame.com.cn/",
+      risk: "岗位偏算法/芯片，需要精准匹配感知或硬件测试。",
+      note: "YOLO、成像和嵌入式推理可以作为切入点。"
+    },
+    {
+      market: "cn",
+      role: "sensor",
+      company: "NIO",
+      size: "大型中企",
+      companyType: "智能汽车",
+      location: "上海 / 合肥 / 北京 / 深圳",
+      hub: "shanghai",
+      match: 78,
+      success: 43,
+      url: "https://campus.nio.com/#/",
+      risk: "汽车岗位竞争强，需要筛智能硬件、传感器、测试。",
+      note: "传感器、NDT、嵌入式和测控可转车载感知/测试。"
+    },
+    {
+      market: "cn",
+      role: "sensor",
+      company: "XPeng Motors",
+      size: "大型中企",
+      companyType: "智能汽车",
+      location: "广州 / 深圳 / 上海 / 武汉",
+      hub: "guangzhou",
+      match: 79,
+      success: 44,
+      url: "https://hr.xiaopeng.com/",
+      risk: "需筛感知、硬件、测试和嵌入式岗位。",
+      note: "适合车载传感器、视觉感知和测试工程。"
+    },
+    {
+      market: "cn",
+      role: "embedded",
+      company: "Li Auto",
+      size: "大型中企",
+      companyType: "智能汽车",
+      location: "北京 / 上海 / 常州",
+      hub: "shanghai",
+      match: 76,
+      success: 43,
+      url: "https://www.lixiang.com/employ/campus.html",
+      risk: "车企岗位多，要避开低相关运营和制造支持岗。",
+      note: "嵌入式、传感器和测试方向可投。"
+    },
+    {
+      market: "cn",
+      role: "embedded",
+      company: "Geely",
+      size: "大型中企",
+      companyType: "汽车",
+      location: "杭州 / 宁波 / 上海 / 西安",
+      hub: "hangzhou",
+      match: 75,
+      success: 54,
+      url: "https://campus.geely.com/",
+      risk: "岗位量大但方向需筛选。",
+      note: "测控、传感器和汽车电子方向可作为高胜率补充。"
+    },
+    {
+      market: "cn",
+      role: "imaging",
+      company: "Momenta",
+      size: "中型中企",
+      companyType: "自动驾驶算法",
+      location: "北京 / 上海 / 苏州",
+      hub: "yangtze",
+      match: 73,
+      success: 32,
+      url: "https://www.momenta.ai/join.html",
+      risk: "更偏算法，需要强 CV/深度学习项目。",
+      note: "只有在补强 YOLO/感知项目后重点投。"
+    },
+    {
+      market: "cn",
+      role: "embedded",
+      company: "Unitree Robotics",
+      size: "中型中企",
+      companyType: "机器人",
+      location: "杭州",
+      hub: "hangzhou",
+      match: 80,
+      success: 40,
+      url: "https://www.unitree.com/cn/careers/",
+      risk: "机器人岗位技术面综合，需准备嵌入式、传感器和控制。",
+      note: "测控、传感器、嵌入式和机器人硬件方向相关。"
+    }
+  ].map(makeOpportunity)
+);
+
+const cities = [
+  {
+    city: "London",
+    market: "UK",
+    image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=900&q=80",
+    housing: "£900-£1,150 合租房间；独居通常压力很大",
+    food: "£260-£390 自炊为主；每周 1-2 次外食",
+    transit: "£80-£175；公交/地铁混合，Zone 1-2 月票约 £170+",
+    clothing: "£45-£90；面试衬衫、鞋、冬衣按月摊销",
+    applications: "£35-£85；打印、LinkedIn/简历工具、面试交通",
+    total: "£1,450-£1,900/月",
+    note: "机会最多，但实习薪资和房租压力最明显；只投强匹配岗位。"
+  },
+  {
+    city: "Edinburgh",
+    market: "UK",
+    image: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=900&q=80",
+    housing: "£650-£850 合租房间",
+    food: "£230-£340 自炊为主",
+    transit: "£60-£90；Ridacard/月票级别预算",
+    clothing: "£40-£80；雨具和冬衣预算更重要",
+    applications: "£25-£65；本地面试交通较低",
+    total: "£1,050-£1,350/月",
+    note: "学校网络强，适合 Leonardo、金融科技、科研和仪器岗位。"
+  },
+  {
+    city: "Glasgow",
+    market: "UK",
+    image: "https://images.unsplash.com/photo-1603199506016-b9a594b593c0?auto=format&fit=crop&w=900&q=80",
+    housing: "£550-£750 合租房间",
+    food: "£220-£330",
+    transit: "£60-£95；First Bus/地铁通勤",
+    clothing: "£40-£75",
+    applications: "£25-£60",
+    total: "£950-£1,250/月",
+    note: "成本低于伦敦，适合先保现金流，再投苏格兰和远程/混合岗位。"
+  },
+  {
+    city: "Cambridge / Oxford",
+    market: "UK",
+    image: "https://images.unsplash.com/photo-1529655683826-aba9b3e77383?auto=format&fit=crop&w=900&q=80",
+    housing: "£800-£1,100 合租房间",
+    food: "£250-£360",
+    transit: "£40-£100；自行车 + 公交",
+    clothing: "£45-£85",
+    applications: "£35-£80；现场面试/火车更常见",
+    total: "£1,250-£1,650/月",
+    note: "研发公司密集，RF、传感器、医疗成像和科学仪器优先级高。"
+  },
+  {
+    city: "Manchester / Birmingham",
+    market: "UK",
+    image: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80",
+    housing: "£550-£800 合租房间",
+    food: "£220-£330",
+    transit: "£60-£110",
+    clothing: "£40-£75",
+    applications: "£30-£70",
+    total: "£980-£1,350/月",
+    note: "Arm、制造、汽车电子和工程咨询岗位可作为英国中成本备选。"
+  },
+  {
+    city: "Shanghai / Beijing",
+    market: "China",
+    image: "https://images.unsplash.com/photo-1548919973-5cef591cdbc9?auto=format&fit=crop&w=900&q=80",
+    housing: "¥3,500-¥5,500；非中心单间/合租差异大",
+    food: "¥1,300-¥2,000；食堂/外卖/自炊混合",
+    transit: "¥180-¥300；地铁公交为主",
+    clothing: "¥300-¥650；正装、鞋、季节衣物摊销",
+    applications: "¥150-¥500；证件照、打印、笔试设备、跨城面试",
+    total: "¥6,000-¥9,000/月",
+    note: "岗位密度高，适合半导体、算法、硬件和总部研发；成本也最高。"
+  },
+  {
+    city: "Shenzhen",
+    market: "China",
+    image: "https://images.unsplash.com/photo-1598257006458-087169a1f08d?auto=format&fit=crop&w=900&q=80",
+    housing: "¥2,800-¥4,500；靠近南山/坂田会更贵",
+    food: "¥1,200-¥1,900",
+    transit: "¥150-¥260",
+    clothing: "¥250-¥600",
+    applications: "¥150-¥500；线下面试交通可能增加",
+    total: "¥5,500-¥8,200/月",
+    note: "华为、大疆、比亚迪、激光雷达和电子硬件岗位密集，节奏快。"
+  },
+  {
+    city: "Hangzhou / Nanjing",
+    market: "China",
+    image: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=900&q=80",
+    housing: "¥2,000-¥3,600 合租/单间",
+    food: "¥1,100-¥1,700",
+    transit: "¥120-¥220",
+    clothing: "¥220-¥520",
+    applications: "¥120-¥420",
+    total: "¥4,600-¥6,900/月",
+    note: "海康、通信、算法、光电和制造研发岗位性价比高。"
+  },
+  {
+    city: "Guangzhou / Dongguan",
+    market: "China",
+    image: "https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?auto=format&fit=crop&w=900&q=80",
+    housing: "¥1,800-¥3,400 合租/单间",
+    food: "¥1,100-¥1,700",
+    transit: "¥120-¥220",
+    clothing: "¥220-¥500",
+    applications: "¥120-¥420",
+    total: "¥4,200-¥6,600/月",
+    note: "通信、射频、电子制造和供应链硬件岗位多，适合补充投递。"
+  },
+  {
+    city: "Suzhou / Wuxi / Ningbo",
+    market: "China",
+    image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
+    housing: "¥1,600-¥3,000 合租/单间",
+    food: "¥1,000-¥1,600",
+    transit: "¥100-¥180",
+    clothing: "¥200-¥480",
+    applications: "¥100-¥350",
+    total: "¥3,900-¥6,000/月",
+    note: "半导体、光学、制造工程和测试岗位性价比高，适合提高 offer 概率。"
+  }
+];
+
+const roleFilter = document.querySelector("#roleFilter");
+const locationFilter = document.querySelector("#locationFilter");
+const levelFilter = document.querySelector("#levelFilter");
+const keywordFilter = document.querySelector("#keywordFilter");
+const jobGrid = document.querySelector("#jobGrid");
+const resultCount = document.querySelector("#resultCount");
+const averageScore = document.querySelector("#averageScore");
+const dynamicInsights = document.querySelector("#dynamicInsights");
+const cityGrid = document.querySelector("#cityGrid");
+const profileDialog = document.querySelector("#profileDialog");
+const profileButton = document.querySelector("[data-open-profile]");
+
+function initials(company) {
+  return company
+    .split(" ")
+    .map((word) => word[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+}
+
+function successLabel(value) {
+  if (value >= 50) return "较高";
+  if (value >= 40) return "中等";
+  if (value >= 30) return "偏低但值得投";
+  return "高风险";
+}
+
+function renderRoles() {
+  const role = roleFilter.value;
+  const market = locationFilter.value;
+  const level = levelFilter.value;
+  const keyword = keywordFilter.value.trim().toLowerCase();
+
+  const filtered = roles
+    .filter((item) => {
+      const roleMatch = role === "all" || item.role === role;
+      const marketMatch =
+        market === "all" ||
+        item.market === market ||
+        (market === "remote" && item.location.toLowerCase().includes("remote"));
+      const levelMatch = level === "all" || item.level === level;
+      const text = `${item.company} ${item.title} ${item.location} ${item.summary} ${item.tags.join(" ")}`.toLowerCase();
+      const keywordMatch = !keyword || text.includes(keyword);
+      return roleMatch && marketMatch && levelMatch && keywordMatch;
+    })
+    .sort((a, b) => b.match + b.success / 2 - (a.match + a.success / 2));
+
+  jobGrid.innerHTML = filtered
+    .map(
+      (job) => `
+        <article class="job-card">
+          <div class="job-top">
+            <div class="company">
+              <span class="logo">${initials(job.company)}</span>
+              <div>
+                <h3>${job.title}</h3>
+                <small>${job.company} · ${job.location} · ${job.size || "公司规模待确认"} · ${job.companyType || "类型待确认"}</small>
+              </div>
+            </div>
+            <span class="match-pill">${job.match}%</span>
+          </div>
+          <p>${job.summary}</p>
+          <div class="metric-grid">
+            <span><strong>${job.cost}</strong>生活成本</span>
+            <span><strong>${job.salary}</strong>薪资估算</span>
+            <span><strong>${job.contractLength}</strong>合同年限</span>
+            <span><strong>${job.applyTime}</strong>投递耗时</span>
+            <span><strong>${job.success}%</strong>成功率估算 · ${successLabel(job.success)}</span>
+            <span><strong>${job.linkType === "exact_apply" ? "岗位级" : "搜索入口"}</strong>${job.verificationStatus}</span>
+          </div>
+          <ul class="cost-lines">
+            <li>住房：${job.rent}</li>
+            <li>交通：${job.transit}</li>
+            <li>风险：${job.risk}</li>
+          </ul>
+          <div class="tags">${job.tags.map((tag) => `<span>${tag}</span>`).join("")}</div>
+          <div class="job-actions">
+            <a href="${job.exactApplyUrl || job.url}" target="_blank" rel="noreferrer">${job.linkType === "exact_apply" ? "打开具体投递页" : "打开官方搜索入口"}</a>
+            <button type="button" data-analyze="${job.company}">生成投递建议</button>
+          </div>
+        </article>
+      `
+    )
+    .join("");
+
+  resultCount.textContent = filtered.length;
+  const average = filtered.length
+    ? Math.round(filtered.reduce((sum, job) => sum + job.match, 0) / filtered.length)
+    : 0;
+  averageScore.textContent = `${average}%`;
+  updateInsights(filtered, market, role);
+}
+
+function updateInsights(filtered, market, role) {
+  const top = filtered[0];
+  const marketText = {
+    all: "双线策略：英国投高匹配研发岗，中国投校招硬件/算法/工艺岗，避免只押一个市场。",
+    uk: "英国重点看 sponsorship 与 security clearance。国防岗匹配高，但 eligibility 风险要先筛掉。",
+    cn: "中国重点看校招批次、笔试、内推和岗位关键词。你的测控本科 + SIS 硕士很适合硬件/算法复合岗。",
+    remote: "远程岗位适合用作品集证明能力：Python DSP demo、RF 仿真报告、NDT 检测模型都可以转成作品。"
+  };
+  const roleText = {
+    all: "建议先做 3 版简历：RF/电子版、传感器/NDT版、半导体/工艺版。",
+    rf: "RF 岗位第一屏必须出现 ADS、CST、S-parameters、impedance matching、antenna/coupler 指标。",
+    sensor: "传感器/NDT 岗位要突出 H-bridge、differential sensing、LabVIEW acquisition、noise analysis。",
+    embedded: "嵌入式/电子岗要补 STM32/Arduino/8051、sensor drivers、motor control、LCD interface。",
+    imaging: "成像岗位要突出 Python、YOLO、real-time inference、image/signal processing。",
+    semiconductor: "半导体岗位要突出 EBL、photolithography、thin-film、SEM、profilometry、probe station。"
+  };
+
+  dynamicInsights.innerHTML = `
+    <li>${top ? `当前最高优先级：${top.company} - ${top.title}，建议先用它改一版定制简历。` : "当前没有筛选结果，放宽岗位方向或市场后再看。"}</li>
+    <li>${marketText[market] || marketText.all}</li>
+    <li>${roleText[role] || roleText.all}</li>
+  `;
+}
+
+function renderCities() {
+  cityGrid.innerHTML = cities
+    .map(
+      (city) => `
+        <article>
+          <img src="${city.image}" alt="${city.city} 城市环境" />
+          <div>
+            <h3>${city.city}</h3>
+            <p>${city.note}</p>
+            <ul class="cost-lines">
+              <li>住：${city.housing}</li>
+              <li>食：${city.food}</li>
+              <li>行：${city.transit}</li>
+              <li>衣：${city.clothing}</li>
+              <li>求职：${city.applications}</li>
+              <li>月预算：${city.total}</li>
+            </ul>
+            <span>${city.market} · 衣食住行生活成本估算</span>
+          </div>
+        </article>
+      `
+    )
+    .join("");
+}
+
+function handleAdviceClick(event) {
+  const button = event.target.closest("[data-analyze]");
+  if (!button) return;
+  const job = roles.find((item) => item.company === button.dataset.analyze);
+  if (!job) return;
+
+  const advice = [
+    `投递优先级：匹配度 ${job.match}%，成功率估算 ${job.success}%（${successLabel(job.success)}）。`,
+    `简历动作：围绕 ${job.tags.join("、")} 重写 3-4 条 bullet，每条都包含工具、任务、结果或指标。`,
+    `成本判断：${job.location} 的月预算约 ${job.cost}，其中住房 ${job.rent}，交通 ${job.transit}。薪资估算：${job.salary}。合同：${job.contractLength}。`,
+    `时间判断：这类申请建议预留 ${job.applyTime}，不要裸投；投递后 7-10 天记录状态并找内推或 recruiter follow-up。`,
+    `链接判断：${job.verificationStatus}。${job.linkType === "exact_apply" ? "这是具体岗位级入口。" : "这不是具体岗位页，需要进入官网后按 internship / graduate / role 关键词筛选。"}`,
+    `风险提醒：${job.risk}。`
+  ].join("\n\n");
+
+  window.alert(`${job.company} · ${job.title}\n\n${advice}`);
+}
+
+[roleFilter, locationFilter, levelFilter, keywordFilter].forEach((control) => {
+  control.addEventListener("input", renderRoles);
+});
+
+jobGrid.addEventListener("click", handleAdviceClick);
+
+profileButton.addEventListener("click", () => {
+  if (typeof profileDialog.showModal === "function") {
+    profileDialog.showModal();
+  }
+});
+
+renderCities();
+renderRoles();
